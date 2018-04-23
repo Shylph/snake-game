@@ -65,4 +65,8 @@ public class Position {
         y+=p.getY();
         return this;
     }
+
+    public Position clone(){
+        return new Position(x,y);
+    }
 }

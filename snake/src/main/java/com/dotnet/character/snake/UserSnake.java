@@ -18,14 +18,11 @@ public class UserSnake extends Snake implements KeyListener {
         int key = e.getKeyCode();
         if ((key == KeyEvent.VK_LEFT) ) {
             left();
-        }
-        if ((key == KeyEvent.VK_RIGHT) ) {
+        }else if ((key == KeyEvent.VK_RIGHT) ) {
             right();
-        }
-        if ((key == KeyEvent.VK_UP) ) {
+        }else if ((key == KeyEvent.VK_UP) ) {
             up();
-        }
-        if ((key == KeyEvent.VK_DOWN) ) {
+        }else if ((key == KeyEvent.VK_DOWN) ) {
             down();
         }
     }

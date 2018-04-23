@@ -1,17 +1,18 @@
 package com.dotnet;
 
-import com.dotnet.character.Apple;
+import com.dotnet.character.Ppi;
+import com.dotnet.character.Rabbit;
 import com.dotnet.character.snake.UserSnake;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 
 public class GameControlLayer {
     private UserSnake userSnake;
-    private Apple apple;
+    private Rabbit apple;
+    private Ppi ppi;
     private Timer timer;
     private GameGraphicLayer gameGraphicLayer;
 
@@ -37,10 +38,15 @@ public class GameControlLayer {
         int r2 = 350;
         apple.setX(r);
         apple.setY(r2);
+
+        ppi.setX(350);
+        ppi.setY(450);
+
     }
 
     public void runGame() {
-        apple = new Apple();
+        ppi=new Ppi();
+        apple = new Rabbit();
         userSnake = new UserSnake();
 
         DrawResourceManager drawResourceManager = new DrawResourceManager();
@@ -56,6 +62,7 @@ public class GameControlLayer {
         gameKeyAdapter.setKeyListener(userSnake);
 
         drawResourceManager.addDrawResource(apple.getDrawResource());
+        drawResourceManager.addDrawResource(ppi.getDrawResource());
         drawResourceManager.addDrawResource(userSnake.getDrawResource());
 
         locateApple();
