@@ -11,7 +11,7 @@ import static com.dotnet.character.snake.Snake.Direction.*;
 
 
 public class Snake {
-    private final int DOT_SIZE = 60;
+    private final int DOT_SIZE = 50;
     private ArrayList<DrawResource> snakeResources;
     private ArrayList<Position> positions;
     private int length;
@@ -44,7 +44,7 @@ public class Snake {
         Position position = new Position();
         position.setPosition(positions.get(positions.size()-1));
         positions.add(position);
-        snakeResources.add(new DrawResource(ImageSource.getBallImg(), position, bodyWidth, bodyHeight));
+        snakeResources.add(new DrawResource(ImageSource.getP1_body(), position, bodyWidth, bodyHeight));
         length++;
     }
 

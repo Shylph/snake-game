@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 
 public class GameControlLayer {
-    private GameDataLayer gameDataLayer;
     private UserSnake userSnake;
     private Apple apple;
     private Timer timer;
@@ -31,18 +30,14 @@ public class GameControlLayer {
         userSnake.move();
     }
 
-
-
-
     private void locateApple() {
        // int r = (int) (Math.random() * gameDataLayer.getRAND_POS());
        // int r2 = (int) (Math.random() * gameDataLayer.getRAND_POS());
-        int r = 7;
-        int r2 = 5;
-        apple.setX(r * userSnake.getDOT_SIZE());
-        apple.setY(r2 * userSnake.getDOT_SIZE());
+        int r = 250;
+        int r2 = 350;
+        apple.setX(r);
+        apple.setY(r2);
     }
-
 
     public void runGame() {
         apple = new Apple();
@@ -51,7 +46,7 @@ public class GameControlLayer {
         DrawResourceManager drawResourceManager = new DrawResourceManager();
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
         ScreenConfig screenConfig = new ScreenConfig();
-        this.gameDataLayer =  new GameDataLayer(drawResourceManager, screenConfig);
+        GameDataLayer gameDataLayer =  new GameDataLayer(drawResourceManager, screenConfig);
         gameGraphicLayer = new GameGraphicLayer(drawResourceManager);
 
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));

@@ -5,7 +5,7 @@ public class GameDataLayer {
     private final ScreenConfig screenConfig;
     private boolean inGame = true;
     private final int RAND_POS = 29;
-    private final int DELAY = 140;
+    private final int DELAY = 250;
 
     public GameDataLayer(DrawResourceManager drawResourceManager,ScreenConfig screenConfig){
         this.drawResourceManager = drawResourceManager;

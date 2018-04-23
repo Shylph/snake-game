@@ -4,6 +4,17 @@ public class Position {
     private int x;
     private int y;
 
+    public Position(int x, int y){
+        setPosition(x,y);
+    }
+    public Position(Position p){
+        setPosition(p);
+    }
+    public Position(){
+        x=0;
+        y=0;
+    }
+
     public int getY() {
         return y;
     }
@@ -43,5 +54,15 @@ public class Position {
 
     public void down(int term) {
         y = y + term;
+    }
+
+    public Position diff(Position p) {
+        return new Position(x-p.getX(), y-p.getY());
+    }
+
+    public Position add(Position p) {
+        x+=p.getX();
+        y+=p.getY();
+        return this;
     }
 }
