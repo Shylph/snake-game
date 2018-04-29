@@ -1,5 +1,7 @@
 package com.dotnet;
 
+import com.dotnet.character.Unit;
+
 public class GameDataLayer {
     private final UnitResourceManager unitResourceManager;
     private final ScreenConfig screenConfig;
@@ -30,29 +32,35 @@ public class GameDataLayer {
         return RAND_POS;
     }
 
-     /*public void checkCollision() {
-        boolean tempInGame = true;
+    public boolean checkFenceCollision(Unit unit) {
+        boolean collision = false;
+        Position pos = unit.getPoint();
+        if (pos.getY() >= screenConfig.getHeight()) {
+            collision = true;
+        }
+
+        if (pos.getY() < 0) {
+            collision = true;
+        }
+
+        if (pos.getX() >= screenConfig.getWidth()) {
+            collision = true;
+        }
+
+        if (pos.getX() < 0) {
+            collision = true;
+        }
+        return collision;
+    }
+
+   /*  public void checkCollision() {
         for (int z = snake.getDots(); z > 0; z--) {
             if ((z > 4) && (snake.getX()[0] == snake.getX()[z]) && (snake.getY()[0] == snake.getY()[z])) {
                 tempInGame = false;
             }
         }
 
-        if (snake.getY()[0] >= screenConfig.getHeight()) {
-            tempInGame = false;
-        }
 
-        if (snake.getY()[0] < 0) {
-            tempInGame = false;
-        }
-
-        if (snake.getX()[0] >= screenConfig.getWidth()) {
-            tempInGame = false;
-        }
-
-        if (snake.getX()[0] < 0) {
-            tempInGame = false;
-        }
         if(!tempInGame)
             falseInGame();
     }*/

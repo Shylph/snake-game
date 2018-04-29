@@ -30,4 +30,8 @@ public class UnitResourceManager {
     public void addUnit(List<Unit> drawResource) {
         drawResources.addAll(drawResource);
     }
+
+    public void clear() {
+        drawResources.clear();
+    }
 }

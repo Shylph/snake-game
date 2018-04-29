@@ -37,7 +37,13 @@ public class GameControlLayer {
         }
     }*/
 
-    private void move() {
+    private void gameProcess() {
+        /* gameControlLayer.checkApple();
+        gameControlLayer.checkCollision();*/
+        if(gameDataLayer.checkFenceCollision(userSnake)){
+            stopGame();
+            gameGraphicLayer.gameOver();
+        }
         userSnake.move();
     }
 
@@ -67,13 +73,10 @@ public class GameControlLayer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (gameDataLayer.isInGame()) {
-
-                   /* gameControlLayer.checkApple();
-                    gameControlLayer.checkCollision();*/
-                    move();
+                     gameProcess();
                 }
                 if (!gameDataLayer.isInGame()) {
-                    timer.stop();
+                    stopGame();
                 }
             }
         };
@@ -82,6 +85,9 @@ public class GameControlLayer {
         timer.start();
     }
 
+    private void stopGame(){
+        timer.stop();
+    }
 
     public GameGraphicLayer getGameGraphicLayer() {
         return gameGraphicLayer;
