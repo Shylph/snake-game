@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DrawResourceManager   {
+public class UnitResourceManager {
     private List<Unit> drawResources;
-    public DrawResourceManager(){
+    public UnitResourceManager(){
         drawResources = new ArrayList<>();
     }
 

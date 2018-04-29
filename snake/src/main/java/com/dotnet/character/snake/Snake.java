@@ -1,6 +1,6 @@
 package com.dotnet.character.snake;
 
-import com.dotnet.DrawResourceManager;
+import com.dotnet.UnitResourceManager;
 import com.dotnet.Position;
 import com.dotnet.character.Unit;
 import com.dotnet.imageSource.ImageSource;
@@ -36,11 +36,11 @@ public class Snake extends Unit  {
         bodyHeight = 50;
     }
 
-    public void incrementBody(DrawResourceManager drawResourceManager) {
+    public void incrementBody(UnitResourceManager unitResourceManager) {
         Unit tail = new Unit(ImageSource.getP1_body(), bodyWidth, bodyHeight);
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
-        drawResourceManager.addUnit(tail);
+        unitResourceManager.addUnit(tail);
     }
 
 

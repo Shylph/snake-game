@@ -1,14 +1,14 @@
 package com.dotnet;
 
 public class GameDataLayer {
-    private final DrawResourceManager drawResourceManager;
+    private final UnitResourceManager unitResourceManager;
     private final ScreenConfig screenConfig;
     private boolean inGame = true;
     private final int RAND_POS = 29;
     private final int DELAY = 50;
 
-    public GameDataLayer(DrawResourceManager drawResourceManager,ScreenConfig screenConfig){
-        this.drawResourceManager = drawResourceManager;
+    public GameDataLayer(UnitResourceManager unitResourceManager, ScreenConfig screenConfig){
+        this.unitResourceManager = unitResourceManager;
         this.screenConfig = screenConfig;
     }
 

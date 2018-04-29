@@ -40,20 +40,20 @@ public class GameControlLayer {
     }
 
     public void runGame() {
-        DrawResourceManager drawResourceManager = new DrawResourceManager();
-        UnitMaker unitMaker = new UnitMaker(drawResourceManager);
+        UnitResourceManager unitResourceManager = new UnitResourceManager();
+        UnitMaker unitMaker = new UnitMaker(unitResourceManager);
         ppi = unitMaker.makePpi();
         apple = unitMaker.makeRabbit();
         userSnake = unitMaker.makeUserSnake();
 
         initStartPosition();
-        userSnake.incrementBody(drawResourceManager);
-        userSnake.incrementBody(drawResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
         ScreenConfig screenConfig = new ScreenConfig();
-        GameDataLayer gameDataLayer = new GameDataLayer(drawResourceManager, screenConfig);
-        gameGraphicLayer = new GameGraphicLayer(drawResourceManager);
+        GameDataLayer gameDataLayer = new GameDataLayer(unitResourceManager, screenConfig);
+        gameGraphicLayer = new GameGraphicLayer(unitResourceManager);
 
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
 

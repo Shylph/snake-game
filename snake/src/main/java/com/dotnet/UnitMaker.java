@@ -7,28 +7,28 @@ import com.dotnet.character.snake.UserSnake;
 
 public class UnitMaker {
 
-    private final DrawResourceManager drawResourceManager;
+    private final UnitResourceManager unitResourceManager;
 
-    public UnitMaker(DrawResourceManager drawResourceManager) {
-        this.drawResourceManager = drawResourceManager;
+    public UnitMaker(UnitResourceManager unitResourceManager) {
+        this.unitResourceManager = unitResourceManager;
 
     }
 
     UserSnake makeUserSnake() {
         UserSnake userSnake = new UserSnake();
-        drawResourceManager.addUnit(userSnake.getDrawResource());
+        unitResourceManager.addUnit(userSnake.getDrawResource());
         return userSnake;
     }
 
     Unit makeRabbit() {
         Rabbit rabbit = new Rabbit();
-        drawResourceManager.addUnit(rabbit.getDrawResource());
+        unitResourceManager.addUnit(rabbit.getDrawResource());
         return rabbit;
     }
 
     Unit makePpi() {
         Ppi ppi = new Ppi();
-        drawResourceManager.addUnit(ppi.getDrawResource());
+        unitResourceManager.addUnit(ppi.getDrawResource());
         return ppi;
     }
 }

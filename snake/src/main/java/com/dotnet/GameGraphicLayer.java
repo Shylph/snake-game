@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 public class GameGraphicLayer extends JPanel {
-    private final DrawResourceManager drawResourceManager;
+    private final UnitResourceManager unitResourceManager;
     private Timer timer;
 
-    public GameGraphicLayer(DrawResourceManager drawResourceManager) {
-        this.drawResourceManager = drawResourceManager;
+    public GameGraphicLayer(UnitResourceManager unitResourceManager) {
+        this.unitResourceManager = unitResourceManager;
 
         setBackground(Color.black);
         setFocusable(true);
@@ -32,7 +32,7 @@ public class GameGraphicLayer extends JPanel {
 
     private void doDrawing(Graphics g) {
         drawBackground(g);
-        Unit[] drawResource = drawResourceManager.getDrawResources();
+        Unit[] drawResource = unitResourceManager.getDrawResources();
         for (Unit resource : drawResource) {
             //   if (!resource.isImgNull())
             drawImage(g, resource);
