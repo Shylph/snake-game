@@ -1,17 +1,23 @@
-package com.dotnet;
+package com.dotnet.character;
+
+import com.dotnet.Position;
 
 import java.awt.*;
 
-public class DrawResource   {
+public class Unit {
     private Image img;
     private final Position p;
     private int width;
     private int height;
-    public DrawResource(Image image, Position p, int width, int height){
+    public Unit(Image image,  int width, int height){
         img=image;
-        this.p = p;
+        this.p = new Position();
         this.width = width;
         this.height = height;
+    }
+
+    public void setPosition(Position p){
+        this.p.setPosition(p);
     }
 
     public Position getPoint() {
@@ -29,5 +35,4 @@ public class DrawResource   {
     public int getHeight() {
         return height;
     }
-
 }

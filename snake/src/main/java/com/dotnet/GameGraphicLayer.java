@@ -1,5 +1,6 @@
 package com.dotnet;
 
+import com.dotnet.character.Unit;
 import com.dotnet.imageSource.ImageSource;
 
 import javax.swing.*;
@@ -31,8 +32,8 @@ public class GameGraphicLayer extends JPanel {
 
     private void doDrawing(Graphics g) {
         drawBackground(g);
-        DrawResource[] drawResource = drawResourceManager.getDrawResources();
-        for (DrawResource resource : drawResource) {
+        Unit[] drawResource = drawResourceManager.getDrawResources();
+        for (Unit resource : drawResource) {
             //   if (!resource.isImgNull())
             drawImage(g, resource);
         }
@@ -54,7 +55,7 @@ public class GameGraphicLayer extends JPanel {
         repaint();
     }
 
-    private void drawImage(Graphics g, DrawResource drawResource) {
+    private void drawImage(Graphics g, Unit drawResource) {
         Position p = drawResource.getPoint();
         g.drawImage(drawResource.getImg(), p.getX(), p.getY(), drawResource.getWidth(), drawResource.getHeight(), this);
     }

@@ -1,7 +1,8 @@
 package com.dotnet.character.snake;
 
+import com.dotnet.DrawResourceManager;
 import com.dotnet.Position;
-import com.dotnet.DrawResource;
+import com.dotnet.character.Unit;
 import com.dotnet.imageSource.ImageSource;
 
 import java.util.ArrayList;
@@ -10,33 +11,30 @@ import java.util.List;
 import static com.dotnet.character.snake.Snake.Direction.*;
 
 
-public class Snake {
+public class Snake extends Unit  {
     private final int DOT_SIZE = 50;
-    private ArrayList<DrawResource> snakeResources;
-    private ArrayList<Position> positions;
-    private int length;
-    private Direction direction=DOWN;
+    private ArrayList<Unit> snakeResources;
+    private Direction direction = DOWN;
     private int bodyWidth;
     private int bodyHeight;
     private int speed;
 
+
     public Snake() {
+        super(ImageSource.getHeadImg(), 60, 80);
         initSnake();
     }
 
     private void initSnake() {
-        length=1;
-        speed = 8;
+        speed = 8;/*
         positions = new ArrayList<>();
-        positions.add(new Position());
+        positions.add(new Position());*/
         snakeResources = new ArrayList<>();
-        int headWidth = 60;
-        int headHeight = 80;
-        snakeResources.add(new DrawResource(ImageSource.getHeadImg(), positions.get(0) , headWidth, headHeight));
+
+        snakeResources.add(this);
         bodyWidth = 50;
         bodyHeight = 50;
-
-        positions.get(0).setPosition(150  , 150);
+/*        addBody();
         addBody();
         addBody();
         addBody();
@@ -45,17 +43,18 @@ public class Snake {
         addBody();
         addBody();
         addBody();
-        addBody();
-        addBody();
+        addBody();*/
     }
 
-    private void addBody(){
-        Position position = new Position();
-        position.setPosition(positions.get(positions.size()-1));
-        position.left(getDOT_SIZE());
-        positions.add(position);
-        snakeResources.add(new DrawResource(ImageSource.getP1_body(), position, bodyWidth, bodyHeight));
-        length++;
+    private void addBody(DrawResourceManager drawResourceManager) {
+        Unit tail = new Unit(ImageSource.getP1_body(), bodyWidth, bodyHeight);
+        tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
+        snakeResources.add(tail);
+        drawResourceManager.addUnit(tail);
+    }
+
+    public void incrementBody(DrawResourceManager drawResourceManager) {
+        addBody(drawResourceManager);
     }
 
 
@@ -69,51 +68,49 @@ public class Snake {
         return DOT_SIZE;
     }
 
-    public List<DrawResource> getDrawResource() {
+    public List<Unit> getDrawResource() {
         return snakeResources;
     }
+
     void down() {
-        direction=DOWN;
+        direction = DOWN;
     }
 
     void up() {
-        direction=UP;
+        direction = UP;
     }
 
     void right() {
-        direction=RIGHT;
+        direction = RIGHT;
     }
 
     void left() {
-        direction=LEFT;
+        direction = LEFT;
     }
 
 
     public void move() {
-       /* for (int z = length-1; z > 0; z--) {
-            positions.get(z).setPosition(positions.get(z - 1));
-        }
-*/
-       Position prePos = positions.get(0).clone();
+        Position prePos = getPoint().clone();
         if (direction == LEFT) {
-            positions.get(0).left(speed);
-        }else if (direction == RIGHT) {
-            positions.get(0).right(speed);
-        }else if (direction == UP) {
-            positions.get(0).up(speed);
-        }else if (direction == DOWN) {
-            positions.get(0).down(speed);
+            getPoint().left(speed);
+        } else if (direction == RIGHT) {
+            getPoint().right(speed);
+        } else if (direction == UP) {
+            getPoint().up(speed);
+        } else if (direction == DOWN) {
+            getPoint().down(speed);
         }
 
-       for(int i=1;i<positions.size();i++){
-            Position pos = positions.get(i);
-            int m = DOT_SIZE-speed;
+        for (int i = 1; i < snakeResources.size(); i++) {
+            Position pos = snakeResources.get(i).getPoint();
+            int m = DOT_SIZE - speed;
             int n = speed;
-            Position nextPos = new Position((m*pos.getX()+n*prePos.getX())/DOT_SIZE,(m*pos.getY()+n*prePos.getY())/DOT_SIZE);
+            Position nextPos = new Position((m * pos.getX() + n * prePos.getX()) / DOT_SIZE, (m * pos.getY() + n * prePos.getY()) / DOT_SIZE);
             prePos.setPosition(pos);
             pos.setPosition(nextPos);
-       }
+        }
     }
+
     enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
