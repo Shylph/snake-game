@@ -34,28 +34,15 @@ public class Snake extends Unit  {
         snakeResources.add(this);
         bodyWidth = 50;
         bodyHeight = 50;
-/*        addBody();
-        addBody();
-        addBody();
-        addBody();
-        addBody();
-        addBody();
-        addBody();
-        addBody();
-        addBody();
-        addBody();*/
     }
 
-    private void addBody(DrawResourceManager drawResourceManager) {
+    public void incrementBody(DrawResourceManager drawResourceManager) {
         Unit tail = new Unit(ImageSource.getP1_body(), bodyWidth, bodyHeight);
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
         drawResourceManager.addUnit(tail);
     }
 
-    public void incrementBody(DrawResourceManager drawResourceManager) {
-        addBody(drawResourceManager);
-    }
 
 
 /*

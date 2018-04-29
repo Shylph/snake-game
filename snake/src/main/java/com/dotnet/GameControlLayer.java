@@ -49,8 +49,6 @@ public class GameControlLayer {
         initStartPosition();
         userSnake.incrementBody(drawResourceManager);
         userSnake.incrementBody(drawResourceManager);
-        userSnake.incrementBody(drawResourceManager);
-        userSnake.incrementBody(drawResourceManager);
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
         ScreenConfig screenConfig = new ScreenConfig();
