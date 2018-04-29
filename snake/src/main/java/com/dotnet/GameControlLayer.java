@@ -14,8 +14,20 @@ public class GameControlLayer {
     private Unit ppi;
     private Timer timer;
     private GameGraphicLayer gameGraphicLayer;
+    private UnitResourceManager unitResourceManager;
+    private UnitMaker unitMaker;
+    private GameDataLayer gameDataLayer;
 
     public GameControlLayer() {
+        unitResourceManager = new UnitResourceManager();
+        unitMaker = new UnitMaker(unitResourceManager);
+
+        gameGraphicLayer = new GameGraphicLayer(unitResourceManager);
+        ScreenConfig screenConfig = new ScreenConfig();
+        gameDataLayer = new GameDataLayer(unitResourceManager, screenConfig);
+
+        gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
+
     }
 
 /*    public void checkApple() {
@@ -32,36 +44,24 @@ public class GameControlLayer {
     private void initStartPosition() {
         // int r = (int) (Math.random() * gameDataLayer.getRAND_POS());
         // int r2 = (int) (Math.random() * gameDataLayer.getRAND_POS());
-        int r = 250;
-        int r2 = 350;
-        apple.setPosition(new Position(r,r2));
-        ppi.setPosition(new Position(350,450));
-        userSnake.setPosition(new Position(200,200));
-    }
-
-    public void runGame() {
-        UnitResourceManager unitResourceManager = new UnitResourceManager();
-        UnitMaker unitMaker = new UnitMaker(unitResourceManager);
         ppi = unitMaker.makePpi();
         apple = unitMaker.makeRabbit();
         userSnake = unitMaker.makeUserSnake();
+        apple.setPosition(new Position(250,250));
+        ppi.setPosition(new Position(350,450));
+        userSnake.setPosition(new Position(200,200));
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+    }
 
+    public void runGame() {
         initStartPosition();
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
-        ScreenConfig screenConfig = new ScreenConfig();
-        GameDataLayer gameDataLayer = new GameDataLayer(unitResourceManager, screenConfig);
-        gameGraphicLayer = new GameGraphicLayer(unitResourceManager);
-
-        gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
-
-        gameGraphicLayer.run();
         gameGraphicLayer.addUserKeyListener(gameKeyAdapter);
         gameKeyAdapter.setKeyListener(userSnake);
 
-
+        gameGraphicLayer.run();
 
         ActionListener actionListener = new ActionListener() {
             @Override
