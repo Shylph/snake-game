@@ -51,6 +51,7 @@ public class GameGraphicLayer extends JPanel {
     public void gameOver(){
         stop();
         runFlag = false;
+        repaint();
     }
 
     private void showGameOver() {
