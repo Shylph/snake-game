@@ -14,7 +14,7 @@ import static com.dotnet.character.snake.Snake.Direction.*;
 public class Snake extends Unit  {
     private final int DOT_SIZE = 50;
     private ArrayList<Unit> snakeResources;
-    private Direction direction = DOWN;
+    private Direction direction = UP;
     private int bodyWidth;
     private int bodyHeight;
     private int speed;

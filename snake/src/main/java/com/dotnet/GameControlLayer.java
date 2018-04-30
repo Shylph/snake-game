@@ -55,7 +55,8 @@ public class GameControlLayer {
         userSnake = unitMaker.makeUserSnake();
         apple.setPosition(new Position(250,250));
         ppi.setPosition(new Position(350,450));
-        userSnake.setPosition(new Position(200,200));
+        userSnake.setPosition(new Position(700,500));
+        userSnake.incrementBody(unitResourceManager);
         userSnake.incrementBody(unitResourceManager);
         userSnake.incrementBody(unitResourceManager);
     }

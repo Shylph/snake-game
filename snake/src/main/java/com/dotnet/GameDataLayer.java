@@ -35,19 +35,19 @@ public class GameDataLayer {
     public boolean checkFenceCollision(Unit unit) {
         boolean collision = false;
         Position pos = unit.getPoint();
-        if (pos.getY() >= screenConfig.getHeight()) {
+        if (pos.getY() >= 755) {
             collision = true;
         }
 
-        if (pos.getY() < 0) {
+        if (pos.getY() < 243) {
             collision = true;
         }
 
-        if (pos.getX() >= screenConfig.getWidth()) {
+        if (pos.getX() >= 1402) {
             collision = true;
         }
 
-        if (pos.getX() < 0) {
+        if (pos.getX() < 164) {
             collision = true;
         }
         return collision;
