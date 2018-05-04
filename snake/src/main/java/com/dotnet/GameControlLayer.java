@@ -23,9 +23,9 @@ public class GameControlLayer {
         unitMaker = new UnitMaker(unitResourceManager);
 
         gameGraphicLayer = new GameGraphicLayer(unitResourceManager);
-        ScreenConfig screenConfig = new ScreenConfig();
-        gameDataLayer = new GameDataLayer(unitResourceManager, screenConfig);
+        gameDataLayer = new GameDataLayer(unitResourceManager);
 
+        ScreenConfig screenConfig = new ScreenConfig();
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
 
     }

@@ -4,14 +4,12 @@ import com.dotnet.character.Unit;
 
 public class GameDataLayer {
     private final UnitResourceManager unitResourceManager;
-    private final ScreenConfig screenConfig;
     private boolean inGame = true;
     private final int RAND_POS = 29;
     private final int DELAY = 50;
 
-    public GameDataLayer(UnitResourceManager unitResourceManager, ScreenConfig screenConfig){
+    public GameDataLayer(UnitResourceManager unitResourceManager){
         this.unitResourceManager = unitResourceManager;
-        this.screenConfig = screenConfig;
     }
 
     public boolean isInGame() {
