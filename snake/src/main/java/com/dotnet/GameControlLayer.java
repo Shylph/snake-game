@@ -59,6 +59,48 @@ public class GameControlLayer {
         userSnake.incrementBody(unitResourceManager);
         userSnake.incrementBody(unitResourceManager);
         userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
     }
 
     public void runGame() {

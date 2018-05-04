@@ -1,10 +1,10 @@
 package com.dotnet.character.snake;
 
-import com.dotnet.UnitResourceManager;
 import com.dotnet.Position;
+import com.dotnet.UnitResourceManager;
 import com.dotnet.character.Unit;
-import com.dotnet.imageSource.ImageSource;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class Snake extends Unit  {
 
 
     public Snake() {
-        super(ImageSource.getHeadImg(), 60, 80);
+        super(new ImageIcon("res/head1_new.png").getImage(), 60, 80);
         initSnake();
     }
 
@@ -37,7 +37,7 @@ public class Snake extends Unit  {
     }
 
     public void incrementBody(UnitResourceManager unitResourceManager) {
-        Unit tail = new Unit(ImageSource.getP1_body(), bodyWidth, bodyHeight);
+        Unit tail = new Unit(new ImageIcon("res/body1_new.png").getImage(), bodyWidth, bodyHeight);
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
         unitResourceManager.addUnit(tail);

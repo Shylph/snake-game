@@ -1,7 +1,6 @@
 package com.dotnet;
 
 import com.dotnet.character.Unit;
-import com.dotnet.imageSource.ImageSource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +44,7 @@ public class GameGraphicLayer extends JPanel {
     }
 
     private void drawBackground() {
-        g.drawImage(ImageSource.getBackground(), 0, 0, 1600, 900, this);
+        g.drawImage(new ImageIcon("res/background2.jpg").getImage(), 0, 0, 1600, 900, this);
     }
 
     public void gameOver(){

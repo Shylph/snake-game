@@ -1,11 +1,11 @@
 package com.dotnet.character;
 
-import com.dotnet.imageSource.ImageSource;
+import javax.swing.ImageIcon;
 
 public class Ppi extends Unit {
 
     public Ppi() {
-        super(ImageSource.getPpiImg(), 60, 60);
+        super(new ImageIcon("res/ppi_1.png").getImage(), 60, 60);
     }
 
     public Unit getDrawResource() {

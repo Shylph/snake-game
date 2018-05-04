@@ -1,11 +1,12 @@
 package com.dotnet.character;
 
-import com.dotnet.imageSource.ImageSource;
+
+import javax.swing.ImageIcon;
 
 public class Rabbit extends Unit {
 
     public Rabbit( ) {
-        super(ImageSource.getRabbitImg(), 60, 60);
+        super(new ImageIcon("res/Rabbit_1.png").getImage(), 60, 60);
     }
 
     public Unit getDrawResource() {

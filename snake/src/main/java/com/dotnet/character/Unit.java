@@ -5,7 +5,7 @@ import com.dotnet.Position;
 import java.awt.*;
 
 public class Unit {
-    private Image img;
+    private final Image img;
     private final Position p;
     private int width;
     private int height;
