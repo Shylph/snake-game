@@ -45,6 +45,7 @@ public class GameDataLayer {
 
     public boolean checkFoodCollision(Snake snake) {
         List<Unit> foods = unitResourceManager.getUnitResources("ppi");
+        foods.addAll(unitResourceManager.getUnitResources("rabbit"));
         for (Unit food : foods) {
             if (snake.checkCollision(food)) {
                 snake.incrementBody(unitResourceManager);
