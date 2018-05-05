@@ -42,7 +42,7 @@ public class GameControlLayer {
         userSnake = unitMaker.makeUserSnake();
         rabbit.setPosition(new Position(250, 250));
         ppi.setPosition(new Position(350, 450));
-        userSnake.setPosition(new Position(510, 450));
+        userSnake.setPosition(new Position(550, 450));
         userSnake.incrementBody(unitResourceManager);
     }
 

@@ -7,16 +7,17 @@ import java.awt.*;
 public class Unit {
     private String name;
     private final Image img;
-    private final Position p;
+
+    public CollisionArea collisionArea;
     private int width;
     private int height;
 
     public Unit(String name, Image image, int width, int height) {
         this.name = name;
         img = image;
-        this.p = new Position();
         this.width = width;
         this.height = height;
+        this.collisionArea = new CollisionArea(null,null);
     }
 
     public boolean isName(String name) {
@@ -24,11 +25,11 @@ public class Unit {
     }
 
     public void setPosition(Position p) {
-        this.p.setPosition(p);
+        collisionArea.setPosition(p);
     }
 
     public Position getPoint() {
-        return p;
+        return collisionArea.getPosition();
     }
 
     public Image getImg() {
@@ -43,12 +44,16 @@ public class Unit {
         return height;
     }
 
+    public CollisionArea getCollisionArea() {
+        return collisionArea;
+    }
+
     public String getName() {
         return name;
     }
 
     public boolean checkCollision(Unit unit){
-        Position target = unit.getPoint();
-        return p.equalPos(target);
+        CollisionArea targetArea = unit.getCollisionArea();
+        return collisionArea.checkCollision(targetArea);
     }
 }

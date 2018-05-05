@@ -1,5 +1,7 @@
 package com.dotnet;
 
+import static java.lang.Math.sqrt;
+
 public class Position {
     private int x;
     private int y;
@@ -67,6 +69,10 @@ public class Position {
         x += p.getX();
         y += p.getY();
         return this;
+    }
+
+    public double lengthFromZero(){
+        return sqrt(x*x+y*y);
     }
 
     public Position clone() {

@@ -2,9 +2,10 @@ package com.dotnet.character.snake;
 
 import com.dotnet.Position;
 import com.dotnet.UnitResourceManager;
+import com.dotnet.character.CollisionArea;
 import com.dotnet.character.Unit;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,16 +19,27 @@ public class Snake extends Unit {
     private int bodyHeight;
     private int speed;
 
-
     public Snake() {
         super("snake1h", new ImageIcon("res/head1_new.png").getImage(), 60, 80);
+        Position boundary[] = {new Position(7, -54),
+                new Position(27, -24),
+                new Position(28, -6),
+                new Position(17, 20),
+                new Position(11, 23),
+                new Position(-12, 23),
+                new Position(-25, 11),
+                new Position(-29, -2),
+                new Position(-29, -17),
+                new Position(-21, -38),
+                new Position(-3, -54)};
+        collisionArea = new CollisionArea(new Position(31, 28), boundary);
+
         initSnake();
+
     }
 
     private void initSnake() {
-        speed = 8;/*
-        positions = new ArrayList<>();
-        positions.add(new Position());*/
+        speed = 8;
         snakeResources = new ArrayList<>();
 
         snakeResources.add(this);

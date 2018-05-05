@@ -13,7 +13,6 @@ public class UnitResourceManager {
         drawResources = new ArrayList<>();
     }
 
-
     public Unit[] getUnitResources() {
         Unit[] temp = new Unit[drawResources.size()];
         return drawResources.toArray(temp);
