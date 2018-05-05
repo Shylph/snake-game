@@ -69,4 +69,9 @@ public class Position {
     public Position clone(){
         return new Position(x,y);
     }
+
+    public boolean equalPos(Position p){
+        return (x == p.getX()) & (y==p.getY());
+    }
+
 }

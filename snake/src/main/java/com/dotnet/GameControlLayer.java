@@ -27,23 +27,14 @@ public class GameControlLayer {
 
         ScreenConfig screenConfig = new ScreenConfig();
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
-
     }
 
-/*    public void checkApple() {
-        if ((snake.getX()[0] == apple.getX()) && (snake.getY()[0] == apple.getY())) {
-            snake.incrementDots();
-            locateApple();
-        }
-    }*/
-
     private void gameProcess() {
-        /* gameControlLayer.checkApple();
-        gameControlLayer.checkCollision();*/
         if(gameDataLayer.checkFenceCollision(userSnake)){
             stopGame();
             gameGraphicLayer.gameOver();
         }
+        gameDataLayer.checkFoodCollision(userSnake);
         userSnake.move();
     }
 
@@ -55,51 +46,7 @@ public class GameControlLayer {
         userSnake = unitMaker.makeUserSnake();
         apple.setPosition(new Position(250,250));
         ppi.setPosition(new Position(350,450));
-        userSnake.setPosition(new Position(700,500));
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
-        userSnake.incrementBody(unitResourceManager);
+        userSnake.setPosition(new Position(510,450));
         userSnake.incrementBody(unitResourceManager);
     }
 

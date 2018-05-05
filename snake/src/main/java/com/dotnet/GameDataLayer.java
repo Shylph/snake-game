@@ -1,6 +1,10 @@
 package com.dotnet;
 
 import com.dotnet.character.Unit;
+import com.dotnet.character.snake.Snake;
+import com.dotnet.character.snake.UserSnake;
+
+import java.util.List;
 
 public class GameDataLayer {
     private final UnitResourceManager unitResourceManager;
@@ -8,17 +12,19 @@ public class GameDataLayer {
     private final int RAND_POS = 29;
     private final int DELAY = 50;
 
-    public GameDataLayer(UnitResourceManager unitResourceManager){
+    public GameDataLayer(UnitResourceManager unitResourceManager) {
         this.unitResourceManager = unitResourceManager;
     }
 
     public boolean isInGame() {
         return inGame;
     }
-    public void falseInGame(){
+
+    public void falseInGame() {
         inGame = false;
     }
-    public void trueInGame(){
+
+    public void trueInGame() {
         inGame = true;
     }
 
@@ -49,6 +55,18 @@ public class GameDataLayer {
             collision = true;
         }
         return collision;
+    }
+
+    public boolean checkFoodCollision(Snake snake) {
+        List<Unit> foods = unitResourceManager.getUnitResources("ppi");
+        for (Unit food : foods) {
+            if(snake.checkCollision(food)){
+                snake.incrementBody(unitResourceManager);
+                unitResourceManager.removeUnit(food.getName());
+                return true;
+            }
+        }
+        return false;
     }
 
    /*  public void checkCollision() {

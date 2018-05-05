@@ -36,7 +36,7 @@ public class GameGraphicLayer extends JPanel {
 
     private void doDrawing() {
         drawBackground();
-        Unit[] drawResource = unitResourceManager.getDrawResources();
+        Unit[] drawResource = unitResourceManager.getUnitResources();
         for (Unit resource : drawResource) {
             drawImage(resource);
         }

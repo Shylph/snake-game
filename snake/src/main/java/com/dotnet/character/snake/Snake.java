@@ -11,17 +11,17 @@ import java.util.List;
 import static com.dotnet.character.snake.Snake.Direction.*;
 
 
-public class Snake extends Unit  {
+public class Snake extends Unit {
     private final int DOT_SIZE = 50;
     private ArrayList<Unit> snakeResources;
-    private Direction direction = UP;
+    private Direction direction = LEFT;
     private int bodyWidth;
     private int bodyHeight;
     private int speed;
 
 
     public Snake() {
-        super(new ImageIcon("res/head1_new.png").getImage(), 60, 80);
+        super("snake1h", new ImageIcon("res/head1_new.png").getImage(), 60, 80);
         initSnake();
     }
 
@@ -37,7 +37,7 @@ public class Snake extends Unit  {
     }
 
     public void incrementBody(UnitResourceManager unitResourceManager) {
-        Unit tail = new Unit(new ImageIcon("res/body1_new.png").getImage(), bodyWidth, bodyHeight);
+        Unit tail = new Unit("snake1b", new ImageIcon("res/body1_new.png").getImage(), bodyWidth, bodyHeight);
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
         unitResourceManager.addUnit(tail);
