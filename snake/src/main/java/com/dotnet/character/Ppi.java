@@ -2,7 +2,7 @@ package com.dotnet.character;
 
 import com.dotnet.Position;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class Ppi extends Unit {
     public Ppi() {
@@ -21,7 +21,7 @@ public class Ppi extends Unit {
                 new Position(-30, 1),
                 new Position(-15, -5),
                 new Position(-15, -14)};
-        collisionArea = new CollisionArea(new Position(31, 28), boundary);
+        setCollisionArea(new CollisionArea(new Position(31, 28), boundary));
     }
 
     public Unit getDrawResource() {

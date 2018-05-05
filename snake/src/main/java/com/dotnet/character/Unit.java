@@ -8,7 +8,7 @@ public class Unit {
     private String name;
     private final Image img;
 
-    public CollisionArea collisionArea;
+    private CollisionArea collisionArea;
     private int width;
     private int height;
 
@@ -17,7 +17,7 @@ public class Unit {
         img = image;
         this.width = width;
         this.height = height;
-        this.collisionArea = new CollisionArea(null,null);
+        this.collisionArea = new CollisionArea(null, null);
     }
 
     public boolean isName(String name) {
@@ -44,15 +44,19 @@ public class Unit {
         return height;
     }
 
-    public CollisionArea getCollisionArea() {
+    private CollisionArea getCollisionArea() {
         return collisionArea;
+    }
+
+    public void setCollisionArea(CollisionArea collisionArea) {
+        this.collisionArea = collisionArea;
     }
 
     public String getName() {
         return name;
     }
 
-    public boolean checkCollision(Unit unit){
+    public boolean checkCollision(Unit unit) {
         CollisionArea targetArea = unit.getCollisionArea();
         return collisionArea.checkCollision(targetArea);
     }
