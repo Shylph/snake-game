@@ -1,6 +1,5 @@
 package com.dotnet.character;
 
-
 import javax.swing.ImageIcon;
 
 public class Rabbit extends Unit {

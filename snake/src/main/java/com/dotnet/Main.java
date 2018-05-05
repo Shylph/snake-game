@@ -1,8 +1,6 @@
 package com.dotnet;
 
 
-import com.dotnet.character.Unit;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -13,7 +11,7 @@ import java.io.File;
 
 public class Main extends JFrame {
 
-    public Main() {
+    private Main() {
 
         GameControlLayer gameControlLayer = new GameControlLayer();
         gameControlLayer.runGame();
@@ -38,12 +36,9 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
 
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame ex = new Main();
-                ex.setVisible(true);
-            }
+        EventQueue.invokeLater(() -> {
+            JFrame ex = new Main();
+            ex.setVisible(true);
         });
     }
 }

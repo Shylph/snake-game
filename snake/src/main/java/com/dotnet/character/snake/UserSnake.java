@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class UserSnake extends Snake implements KeyListener {
-    public UserSnake(){
+    public UserSnake() {
         super();
     }
 
@@ -16,13 +16,13 @@ public class UserSnake extends Snake implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if ((key == KeyEvent.VK_LEFT) ) {
+        if ((key == KeyEvent.VK_LEFT)) {
             left();
-        }else if ((key == KeyEvent.VK_RIGHT) ) {
+        } else if ((key == KeyEvent.VK_RIGHT)) {
             right();
-        }else if ((key == KeyEvent.VK_UP) ) {
+        } else if ((key == KeyEvent.VK_UP)) {
             up();
-        }else if ((key == KeyEvent.VK_DOWN) ) {
+        } else if ((key == KeyEvent.VK_DOWN)) {
             down();
         }
     }

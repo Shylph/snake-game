@@ -10,9 +10,9 @@ public class GameGraphicLayer extends JPanel {
     private UnitResourceManager unitResourceManager;
     private Timer timer;
     private Graphics g;
-    private boolean runFlag=true;
+    private boolean runFlag = true;
 
-    public GameGraphicLayer(UnitResourceManager unitResourceManager) {
+    GameGraphicLayer(UnitResourceManager unitResourceManager) {
         this.unitResourceManager = unitResourceManager;
 
         setBackground(Color.black);
@@ -26,9 +26,9 @@ public class GameGraphicLayer extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.g =g;
+        this.g = g;
         doDrawing();
-        if(!runFlag){
+        if (!runFlag) {
             unitResourceManager.clear();
             showGameOver();
         }
@@ -47,7 +47,7 @@ public class GameGraphicLayer extends JPanel {
         g.drawImage(new ImageIcon("res/background2.jpg").getImage(), 0, 0, 1600, 900, this);
     }
 
-    public void gameOver(){
+    public void gameOver() {
         stop();
         runFlag = false;
         repaint();
@@ -55,7 +55,7 @@ public class GameGraphicLayer extends JPanel {
 
     private void showGameOver() {
         g.setColor(Color.BLACK);
-        g.fillRect(0,0,2000,2000);
+        g.fillRect(0, 0, 2000, 2000);
 
         g.setColor(Color.WHITE);
         String msg = "Game Over";
@@ -78,7 +78,7 @@ public class GameGraphicLayer extends JPanel {
         timer.start();
     }
 
-    private void stop(){
+    private void stop() {
         timer.stop();
     }
 }

@@ -4,12 +4,11 @@ import com.dotnet.Position;
 import com.dotnet.UnitResourceManager;
 import com.dotnet.character.Unit;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.dotnet.character.snake.Snake.Direction.*;
-
 
 public class Snake extends Unit {
     private final int DOT_SIZE = 50;
@@ -43,18 +42,6 @@ public class Snake extends Unit {
         unitResourceManager.addUnit(tail);
     }
 
-
-
-/*
-    public void incrementDots() {
-        dots++;
-    }
-*/
-
-    public int getDOT_SIZE() {
-        return DOT_SIZE;
-    }
-
     public List<Unit> getDrawResource() {
         return snakeResources;
     }
@@ -74,7 +61,6 @@ public class Snake extends Unit {
     void left() {
         direction = LEFT;
     }
-
 
     public void move() {
         Position prePos = getPoint().clone();

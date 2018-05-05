@@ -4,15 +4,17 @@ public class Position {
     private int x;
     private int y;
 
-    public Position(int x, int y){
-        setPosition(x,y);
+    public Position(int x, int y) {
+        setPosition(x, y);
     }
-    public Position(Position p){
+
+    public Position(Position p) {
         setPosition(p);
     }
-    public Position(){
-        x=0;
-        y=0;
+
+    public Position() {
+        x = 0;
+        y = 0;
     }
 
     public int getY() {
@@ -40,6 +42,7 @@ public class Position {
         this.x = x;
         this.y = y;
     }
+
     public void left(int term) {
         x = x - term;
     }
@@ -57,21 +60,21 @@ public class Position {
     }
 
     public Position diff(Position p) {
-        return new Position(x-p.getX(), y-p.getY());
+        return new Position(x - p.getX(), y - p.getY());
     }
 
     public Position add(Position p) {
-        x+=p.getX();
-        y+=p.getY();
+        x += p.getX();
+        y += p.getY();
         return this;
     }
 
-    public Position clone(){
-        return new Position(x,y);
+    public Position clone() {
+        return new Position(x, y);
     }
 
-    public boolean equalPos(Position p){
-        return (x == p.getX()) & (y==p.getY());
+    public boolean equalPos(Position p) {
+        return (x == p.getX()) & (y == p.getY());
     }
 
 }

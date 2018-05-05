@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 public class GameKeyAdapter extends KeyAdapter {
     private KeyListener keyListener;
 
-    public void setKeyListener(KeyListener keyListener){
+    public void setKeyListener(KeyListener keyListener) {
         this.keyListener = keyListener;
     }
 

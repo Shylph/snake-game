@@ -22,7 +22,7 @@ public class UnitResourceManager {
     public List<Unit> getUnitResources(String name) {
         List<Unit> result = new ArrayList<>();
         for (Unit unit : drawResources) {
-            if(unit.isName(name)){
+            if (unit.isName(name)) {
                 result.add(unit);
             }
         }
@@ -31,8 +31,8 @@ public class UnitResourceManager {
 
     public Unit getUnitResource(String name) {
         for (Unit unit : drawResources) {
-            if(unit.isName(name)){
-                return  unit;
+            if (unit.isName(name)) {
+                return unit;
             }
         }
         return null;
@@ -57,7 +57,7 @@ public class UnitResourceManager {
 
     public void removeUnit(String name) {
         for (Unit unit : drawResources) {
-            if(unit.isName(name)){
+            if (unit.isName(name)) {
                 drawResources.remove(unit);
                 break;
             }

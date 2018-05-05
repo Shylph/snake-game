@@ -5,12 +5,10 @@ import com.dotnet.character.snake.UserSnake;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GameControlLayer {
     private UserSnake userSnake;
-    private Unit apple;
+    private Unit rabbit;
     private Unit ppi;
     private Timer timer;
     private GameGraphicLayer gameGraphicLayer;
@@ -30,7 +28,7 @@ public class GameControlLayer {
     }
 
     private void gameProcess() {
-        if(gameDataLayer.checkFenceCollision(userSnake)){
+        if (gameDataLayer.checkFenceCollision(userSnake)) {
             stopGame();
             gameGraphicLayer.gameOver();
         }
@@ -39,14 +37,12 @@ public class GameControlLayer {
     }
 
     private void initStartPosition() {
-        // int r = (int) (Math.random() * gameDataLayer.getRAND_POS());
-        // int r2 = (int) (Math.random() * gameDataLayer.getRAND_POS());
         ppi = unitMaker.makePpi();
-        apple = unitMaker.makeRabbit();
+        rabbit = unitMaker.makeRabbit();
         userSnake = unitMaker.makeUserSnake();
-        apple.setPosition(new Position(250,250));
-        ppi.setPosition(new Position(350,450));
-        userSnake.setPosition(new Position(510,450));
+        rabbit.setPosition(new Position(250, 250));
+        ppi.setPosition(new Position(350, 450));
+        userSnake.setPosition(new Position(510, 450));
         userSnake.incrementBody(unitResourceManager);
     }
 
@@ -59,23 +55,18 @@ public class GameControlLayer {
 
         gameGraphicLayer.run();
 
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (gameDataLayer.isInGame()) {
-                     gameProcess();
-                }
-                if (!gameDataLayer.isInGame()) {
-                    stopGame();
-                }
+        timer = new Timer(gameDataLayer.getDELAY(), e -> {
+            if (gameDataLayer.isInGame()) {
+                gameProcess();
             }
-        };
-
-        timer = new Timer(gameDataLayer.getDELAY(), actionListener);
+            if (!gameDataLayer.isInGame()) {
+                stopGame();
+            }
+        });
         timer.start();
     }
 
-    private void stopGame(){
+    private void stopGame() {
         timer.stop();
     }
 
