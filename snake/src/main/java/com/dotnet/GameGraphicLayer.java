@@ -36,8 +36,8 @@ public class GameGraphicLayer extends JPanel {
 
     private void doDrawing() {
         drawBackground();
-        Unit[] drawResource = unitResourceManager.getUnitResources();
-        for (Unit resource : drawResource) {
+        Unit[] unitResource = unitResourceManager.getUnitResources();
+        for (Unit resource : unitResource) {
             drawImage(resource);
         }
         Toolkit.getDefaultToolkit().sync();
@@ -68,9 +68,10 @@ public class GameGraphicLayer extends JPanel {
 
     }
 
-    private void drawImage(Unit drawResource) {
-        Position p = drawResource.getPoint();
-        g.drawImage(drawResource.getImg(), p.getX(), p.getY(), drawResource.getWidth(), drawResource.getHeight(), this);
+    private void drawImage(Unit unitResource) {
+        Position p = unitResource.getDrawPosition();
+        ImageIcon icon = unitResource.getImgIcon();
+        g.drawImage(icon.getImage(), p.getX(), p.getY(), icon.getIconWidth(), icon.getIconHeight(), this);
     }
 
     public void run() {

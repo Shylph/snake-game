@@ -13,6 +13,12 @@ public class CollisionArea {
         this.boundaries = boundaries;
     }
 
+    public CollisionArea(Position position, Position centralAxis, Position[] boundaries) {
+        this.position = position;
+        this.centralAxis = centralAxis;
+        this.boundaries = boundaries;
+    }
+
     public boolean checkCollision(CollisionArea targetArea) {
 
         Position diff = position.diff(targetArea.position);
@@ -63,4 +69,7 @@ public class CollisionArea {
         return crosses % 2 > 0;
     }
 
+    public Position getDrawPosition(){
+        return position.diff(centralAxis);
+    }
 }

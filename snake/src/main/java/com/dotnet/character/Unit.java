@@ -2,21 +2,17 @@ package com.dotnet.character;
 
 import com.dotnet.Position;
 
-import java.awt.*;
+import javax.swing.*;
 
 public class Unit {
     private String name;
-    private final Image img;
+    private final ImageIcon img;
 
     private CollisionArea collisionArea;
-    private int width;
-    private int height;
 
-    public Unit(String name, Image image, int width, int height) {
+    public Unit(String name, ImageIcon image) {
         this.name = name;
         img = image;
-        this.width = width;
-        this.height = height;
         this.collisionArea = new CollisionArea(null, null);
     }
 
@@ -32,17 +28,21 @@ public class Unit {
         return collisionArea.getPosition();
     }
 
-    public Image getImg() {
+    public Position getDrawPosition() {
+        return collisionArea.getDrawPosition();
+    }
+
+    public ImageIcon getImgIcon() {
         return img;
     }
 
-    public int getWidth() {
-        return width;
+    /*public int getWidth() {
+        return img.getIconWidth();
     }
 
     public int getHeight() {
-        return height;
-    }
+        return img.getIconHeight();
+    }*/
 
     private CollisionArea getCollisionArea() {
         return collisionArea;

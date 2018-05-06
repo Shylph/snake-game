@@ -7,7 +7,7 @@ import javax.swing.*;
 public class Rabbit extends Unit {
 
     public Rabbit() {
-        super("rabbit", new ImageIcon("res/Rabbit_1.png").getImage(), 60, 60);
+        super("rabbit", new ImageIcon("res/Rabbit_1.png"));
         Position boundary[] = {new Position(-5, -23),
                 new Position(27, -31),
                 new Position(8, -11),

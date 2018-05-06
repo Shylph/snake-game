@@ -15,12 +15,10 @@ public class Snake extends Unit {
     private final int DOT_SIZE = 50;
     private ArrayList<Unit> snakeResources;
     private Direction direction = LEFT;
-    private int bodyWidth;
-    private int bodyHeight;
     private int speed;
 
     public Snake() {
-        super("snake1h", new ImageIcon("res/head1_new.png").getImage(), 60, 80);
+        super("snake1h", new ImageIcon("res/head1_new.png"));
         Position boundary[] = {new Position(7, -54),
                 new Position(27, -24),
                 new Position(28, -6),
@@ -43,12 +41,11 @@ public class Snake extends Unit {
         snakeResources = new ArrayList<>();
 
         snakeResources.add(this);
-        bodyWidth = 50;
-        bodyHeight = 50;
     }
 
     public void incrementBody(UnitResourceManager unitResourceManager) {
-        Unit tail = new Unit("snake1b", new ImageIcon("res/body1_new.png").getImage(), bodyWidth, bodyHeight);
+        Unit tail = new Unit("snake1b", new ImageIcon("res/body1_new.png"));
+        tail.setCollisionArea(new CollisionArea(new Position(30,30),null));
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
         unitResourceManager.addUnit(tail);
