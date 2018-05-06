@@ -30,7 +30,7 @@ public class Snake extends Unit {
                 new Position(-29, -17),
                 new Position(-21, -38),
                 new Position(-3, -54)};
-        setCollisionArea(new CollisionArea(new Position(31, 28), boundary));
+        setCollisionArea(new CollisionArea(new Position(30, 55), boundary));
 
         initSnake();
 
