@@ -72,4 +72,8 @@ public class CollisionArea {
     public Position getDrawPosition(){
         return position.diff(centralAxis);
     }
+
+    public Position getCentralAxis() {
+        return centralAxis;
+    }
 }

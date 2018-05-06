@@ -18,7 +18,7 @@ public class Snake extends Unit {
     private int speed;
 
     public Snake() {
-        super("snake1h", new ImageIcon("res/head1_new.png"));
+        super("snake1h", "res/head1_new.png");
         Position boundary[] = {new Position(7, -54),
                 new Position(27, -24),
                 new Position(28, -6),
@@ -44,7 +44,7 @@ public class Snake extends Unit {
     }
 
     public void incrementBody(UnitResourceManager unitResourceManager) {
-        Unit tail = new Unit("snake1b", new ImageIcon("res/body1_new.png"));
+        Unit tail = new Unit("snake1b", "res/body1_new.png");
         tail.setCollisionArea(new CollisionArea(new Position(30,30),null));
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
@@ -57,18 +57,22 @@ public class Snake extends Unit {
 
     void down() {
         direction = DOWN;
+        setRotation(180);
     }
 
     void up() {
         direction = UP;
+        setRotation(0);
     }
 
     void right() {
         direction = RIGHT;
+        setRotation(90);
     }
 
     void left() {
         direction = LEFT;
+        setRotation(270);
     }
 
     public void move() {

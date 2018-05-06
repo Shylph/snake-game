@@ -5,6 +5,7 @@ import com.dotnet.character.Unit;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 public class GameGraphicLayer extends JPanel {
     private UnitResourceManager unitResourceManager;
@@ -68,10 +69,10 @@ public class GameGraphicLayer extends JPanel {
 
     }
 
-    private void drawImage(Unit unitResource) {
+    private void drawImage(Unit unitResource)  {
         Position p = unitResource.getDrawPosition();
-        ImageIcon icon = unitResource.getImgIcon();
-        g.drawImage(icon.getImage(), p.getX(), p.getY(), icon.getIconWidth(), icon.getIconHeight(), this);
+        BufferedImage image= unitResource.getBufferedImage();
+        g.drawImage(image, p.getX(), p.getY(), image.getWidth(), image.getHeight(), this);
     }
 
     public void run() {
