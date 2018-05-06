@@ -5,6 +5,7 @@ import com.dotnet.character.snake.UserSnake;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class GameControlLayer {
     private UserSnake userSnake;
@@ -32,17 +33,17 @@ public class GameControlLayer {
             stopGame();
             gameGraphicLayer.gameOver();
         }
-        gameDataLayer.checkFoodCollision(userSnake);
+        if(gameDataLayer.checkFoodCollision(userSnake)){
+            Random random = new Random();
+            rabbit = unitMaker.makeRabbit(new Position(random.nextInt(1600), random.nextInt(900)));
+        }
         userSnake.move();
     }
 
     private void initStartPosition() {
-        ppi = unitMaker.makePpi();
-        rabbit = unitMaker.makeRabbit();
-        userSnake = unitMaker.makeUserSnake();
-        rabbit.setPosition(new Position(250, 250));
-        ppi.setPosition(new Position(350, 450));
-        userSnake.setPosition(new Position(550, 450));
+        ppi = unitMaker.makePpi(new Position(350, 450));
+        userSnake = unitMaker.makeUserSnake(new Position(550, 450));
+        rabbit = unitMaker.makeRabbit(new Position(250, 250));
         userSnake.incrementBody(unitResourceManager);
     }
 
