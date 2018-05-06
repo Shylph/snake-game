@@ -2,8 +2,6 @@ package com.dotnet.character;
 
 import com.dotnet.Position;
 
-import javax.swing.*;
-
 public class Rabbit extends Unit {
 
     public Rabbit() {

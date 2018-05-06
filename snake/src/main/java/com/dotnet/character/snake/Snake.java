@@ -5,7 +5,6 @@ import com.dotnet.UnitResourceManager;
 import com.dotnet.character.CollisionArea;
 import com.dotnet.character.Unit;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +15,11 @@ public class Snake extends Unit {
     private ArrayList<Unit> snakeResources;
     private Direction direction = LEFT;
     private int speed;
+    private String bodyPath;
 
-    public Snake() {
-        super("snake1h", "res/head1_new.png");
+    public Snake(String headPath, String bodyPath) {
+        super("snake1h", headPath);
+        this.bodyPath = bodyPath;
         Position boundary[] = {new Position(7, -54),
                 new Position(27, -24),
                 new Position(28, -6),
@@ -37,14 +38,14 @@ public class Snake extends Unit {
     }
 
     private void initSnake() {
-        speed = 8;
+        speed = 20;
         snakeResources = new ArrayList<>();
 
         snakeResources.add(this);
     }
 
     public void incrementBody(UnitResourceManager unitResourceManager) {
-        Unit tail = new Unit("snake1b", "res/body1_new.png");
+        Unit tail = new Unit("snake1b", bodyPath);
         tail.setCollisionArea(new CollisionArea(new Position(30,30),null));
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
@@ -55,22 +56,22 @@ public class Snake extends Unit {
         return snakeResources;
     }
 
-    void down() {
+    public void down() {
         direction = DOWN;
         setRotation(180);
     }
 
-    void up() {
+    public void up() {
         direction = UP;
         setRotation(0);
     }
 
-    void right() {
+    public void right() {
         direction = RIGHT;
         setRotation(90);
     }
 
-    void left() {
+    public void left() {
         direction = LEFT;
         setRotation(270);
     }
