@@ -9,6 +9,9 @@ public class GameDataLayer {
     private final UnitResourceManager unitResourceManager;
     private boolean inGame = true;
     private final int DELAY = 50;
+    private int bgBoundary[][] = {{755,243,1402,164},{850,480,1100,254}};
+    private int bgSelecter;
+
 
     public GameDataLayer(UnitResourceManager unitResourceManager) {
         this.unitResourceManager = unitResourceManager;
@@ -25,19 +28,19 @@ public class GameDataLayer {
     public boolean checkFenceCollision(Unit unit) {
         boolean collision = false;
         Position pos = unit.getPoint();
-        if (pos.getY() >= 755) {
+        if (pos.getY() >= bgBoundary[bgSelecter][0]) {
             collision = true;
         }
 
-        if (pos.getY() < 243) {
+        if (pos.getY() < bgBoundary[bgSelecter][1]) {
             collision = true;
         }
 
-        if (pos.getX() >= 1402) {
+        if (pos.getX() >= bgBoundary[bgSelecter][2]) {
             collision = true;
         }
 
-        if (pos.getX() < 164) {
+        if (pos.getX() < bgBoundary[bgSelecter][3]) {
             collision = true;
         }
         return collision;
@@ -53,5 +56,13 @@ public class GameDataLayer {
             }
         }
         return false;
+    }
+
+    public void changeFenceBoundary(){
+        if(bgSelecter==0){
+            bgSelecter=1;
+        }else{
+            bgSelecter=0;
+        }
     }
 }

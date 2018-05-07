@@ -1,6 +1,5 @@
 package com.dotnet;
 
-import com.dotnet.character.Unit;
 import com.dotnet.character.snake.Snake;
 import com.dotnet.character.snake.UserSnake;
 
@@ -10,8 +9,6 @@ import java.util.Random;
 
 public class GameControlLayer {
     private UserSnake userSnake;
-    private Unit rabbit;
-    private Unit ppi;
     private Timer timer;
     private GameGraphicLayer gameGraphicLayer;
     private UnitResourceManager unitResourceManager;
@@ -24,6 +21,7 @@ public class GameControlLayer {
         unitMaker = new UnitMaker(unitResourceManager);
 
         gameGraphicLayer = new GameGraphicLayer(unitResourceManager);
+
         gameDataLayer = new GameDataLayer(unitResourceManager);
 
         ScreenConfig screenConfig = new ScreenConfig();
@@ -37,19 +35,21 @@ public class GameControlLayer {
         }
         if(gameDataLayer.checkFoodCollision(userSnake)){
             Random random = new Random();
-            rabbit = unitMaker.makeFood(new Position(random.nextInt(1250)+150, random.nextInt(490)+300));
+            unitMaker.makeFood(new Position(random.nextInt(1250)+150, random.nextInt(490)+300));
+            gameGraphicLayer.changeBackground();
+            gameDataLayer.changeFenceBoundary();
         }
         userSnake.move();
-        snakeAi.move();
+        //snakeAi.move();
     }
 
     private void initStartPosition() {
-        ppi = unitMaker.makePpi(new Position(350, 450));
+        unitMaker.makePpi(new Position(350, 550));
         userSnake = unitMaker.makeUserSnake(new Position(550, 450));
-        rabbit = unitMaker.makeRabbit(new Position(250, 350));
+        unitMaker.makeRabbit(new Position(250, 350));
         Snake snake = unitMaker.makeSnake(new Position(1000, 650));
         snakeAi = new SnakeAi(snake);
-       // userSnake.incrementBody(unitResourceManager);
+        userSnake.incrementBody(unitResourceManager);
     }
 
     public void runGame() {
