@@ -15,14 +15,15 @@ public class GameControlLayer {
     private UnitMaker unitMaker;
     private GameDataLayer gameDataLayer;
     private SnakeAi snakeAi;
+    private final ScoreBoard scoreBoard;
 
     public GameControlLayer() {
         unitResourceManager = new UnitResourceManager();
         unitMaker = new UnitMaker(unitResourceManager);
+        scoreBoard = new ScoreBoard();
+        gameGraphicLayer = new GameGraphicLayer(unitResourceManager, scoreBoard);
 
-        gameGraphicLayer = new GameGraphicLayer(unitResourceManager);
-
-        gameDataLayer = new GameDataLayer(unitResourceManager);
+        gameDataLayer = new GameDataLayer(unitResourceManager, scoreBoard);
 
         ScreenConfig screenConfig = new ScreenConfig();
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
@@ -36,6 +37,8 @@ public class GameControlLayer {
         if(gameDataLayer.checkFoodCollision(userSnake)){
             Random random = new Random();
             unitMaker.makeFood(new Position(random.nextInt(1250)+150, random.nextInt(490)+300));
+        }
+        if(scoreBoard.getScore()>200){
             gameGraphicLayer.changeBackground();
             gameDataLayer.changeFenceBoundary();
         }

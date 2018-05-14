@@ -15,9 +15,11 @@ public class GameGraphicLayer extends JPanel {
     private Image background;
     private Image background1;
     private Image background2;
+    private ScoreBoard scoreBoard;
 
-    GameGraphicLayer(UnitResourceManager unitResourceManager) {
+    GameGraphicLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
         this.unitResourceManager = unitResourceManager;
+        this.scoreBoard = scoreBoard;
 
         setBackground(Color.black);
         setFocusable(true);
@@ -40,6 +42,7 @@ public class GameGraphicLayer extends JPanel {
             unitResourceManager.clear();
             showGameOver();
         }
+        showScore();
     }
 
     private void doDrawing() {
@@ -75,9 +78,18 @@ public class GameGraphicLayer extends JPanel {
         repaint();
     }
 
-    private void drawImage(Unit unitResource)  {
+    private void showScore() {
+        g.setColor(Color.BLACK);
+        String msg = "Score : " + scoreBoard.getScore();
+        Font small = new Font("Helvetica", Font.BOLD, 16);
+
+        g.setFont(small);
+        g.drawString(msg, 13, 40);
+    }
+
+    private void drawImage(Unit unitResource) {
         Position p = unitResource.getDrawPosition();
-        BufferedImage image= unitResource.getBufferedImage();
+        BufferedImage image = unitResource.getBufferedImage();
         g.drawImage(image, p.getX(), p.getY(), image.getWidth(), image.getHeight(), this);
     }
 
@@ -90,11 +102,12 @@ public class GameGraphicLayer extends JPanel {
         timer.stop();
     }
 
-    public void changeBackground(){
-        if(background == background1){
+    public void changeBackground() {
+        if (background == background1) {
             background = background2;
-        }else{
+        } else {
             background = background1;
         }
     }
+
 }

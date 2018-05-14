@@ -9,12 +9,14 @@ public class GameDataLayer {
     private final UnitResourceManager unitResourceManager;
     private boolean inGame = true;
     private final int DELAY = 50;
-    private int bgBoundary[][] = {{755,243,1402,164},{850,480,1100,254}};
+    private int bgBoundary[][] = {{755, 243, 1402, 164}, {850, 480, 1100, 254}};
     private int bgSelecter;
+    private ScoreBoard scoreBoard;
 
 
-    public GameDataLayer(UnitResourceManager unitResourceManager) {
+    public GameDataLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
         this.unitResourceManager = unitResourceManager;
+        this.scoreBoard = scoreBoard;
     }
 
     public boolean isInGame() {
@@ -52,17 +54,18 @@ public class GameDataLayer {
             if (snake.checkCollision(food)) {
                 snake.incrementBody(unitResourceManager);
                 unitResourceManager.removeUnit(food.getName());
+                scoreBoard.addScore(100);
                 return true;
             }
         }
         return false;
     }
 
-    public void changeFenceBoundary(){
-        if(bgSelecter==0){
-            bgSelecter=1;
-        }else{
-            bgSelecter=0;
+    public void changeFenceBoundary() {
+        if (bgSelecter == 0) {
+            bgSelecter = 1;
+        } else {
+            bgSelecter = 0;
         }
     }
 }
