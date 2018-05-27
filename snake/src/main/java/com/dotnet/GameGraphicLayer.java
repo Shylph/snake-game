@@ -16,6 +16,7 @@ public class GameGraphicLayer extends JPanel {
     private Image background1;
     private Image background2;
     private ScoreBoard scoreBoard;
+    private final Image background3;
 
     GameGraphicLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
         this.unitResourceManager = unitResourceManager;
@@ -26,6 +27,7 @@ public class GameGraphicLayer extends JPanel {
 
         background1 = new ImageIcon("res/background2.jpg").getImage();
         background2 = new ImageIcon("res/background3.jpg").getImage();
+        background3 = new ImageIcon("res/stage3.jpg").getImage();
         background = background1;
     }
 
@@ -103,7 +105,9 @@ public class GameGraphicLayer extends JPanel {
     }
 
     public void changeBackground() {
-        if (background == background1) {
+        if(background == background2){
+            background = background3;
+        }else if (background == background1) {
             background = background2;
         } else {
             background = background1;

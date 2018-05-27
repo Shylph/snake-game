@@ -9,7 +9,7 @@ public class GameDataLayer {
     private final UnitResourceManager unitResourceManager;
     private boolean inGame = true;
     private final int DELAY = 50;
-    private int bgBoundary[][] = {{755, 243, 1402, 164}, {850, 480, 1100, 254}};
+    private int bgBoundary[][] = {{755, 243, 1402, 164}, {850, 480, 1100, 254}, {850, 500, 1520, 80}};
     private int bgSelecter;
     private ScoreBoard scoreBoard;
 
@@ -17,6 +17,10 @@ public class GameDataLayer {
     public GameDataLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
         this.unitResourceManager = unitResourceManager;
         this.scoreBoard = scoreBoard;
+    }
+
+    public int[] getCurrentBgBoundary() {
+        return bgBoundary[bgSelecter];
     }
 
     public boolean isInGame() {
@@ -62,7 +66,9 @@ public class GameDataLayer {
     }
 
     public void changeFenceBoundary() {
-        if (bgSelecter == 0) {
+        if (bgSelecter == 1) {
+            bgSelecter = 2;
+        }else if (bgSelecter == 0) {
             bgSelecter = 1;
         } else {
             bgSelecter = 0;

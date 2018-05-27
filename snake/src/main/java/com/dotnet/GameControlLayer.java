@@ -28,7 +28,7 @@ public class GameControlLayer {
 
         ScreenConfig screenConfig = new ScreenConfig();
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
-        stage=0;
+        stage = 0;
     }
 
     private void gameProcess() {
@@ -36,16 +36,25 @@ public class GameControlLayer {
             stopGame();
             gameGraphicLayer.gameOver();
         }
-        if(gameDataLayer.checkFoodCollision(userSnake)){
-            Random random = new Random();
-            unitMaker.makeFood(new Position(random.nextInt(1250)+150, random.nextInt(490)+300));
-        }
-        if(scoreBoard.getScore()>200){
-            if(stage==0){
+        if (scoreBoard.getScore() > 400) {
+            if (stage == 1) {
+                userSnake.setPosition(new Position(550, 600));
                 gameGraphicLayer.changeBackground();
                 gameDataLayer.changeFenceBoundary();
                 stage++;
             }
+        } else if (scoreBoard.getScore() > 200) {
+            if (stage == 0) {
+                userSnake.setPosition(new Position(550, 600));
+                gameGraphicLayer.changeBackground();
+                gameDataLayer.changeFenceBoundary();
+                stage++;
+            }
+        }
+        if (gameDataLayer.checkFoodCollision(userSnake)) {
+            Random random = new Random();
+            int boundary[] = gameDataLayer.getCurrentBgBoundary();
+            unitMaker.makeFood(new Position(random.nextInt(boundary[2] - boundary[3]) + boundary[3], random.nextInt(boundary[0] - boundary[1]) + boundary[1]));
         }
         userSnake.move();
         //snakeAi.move();
@@ -53,7 +62,7 @@ public class GameControlLayer {
 
     private void initStartPosition() {
         unitMaker.makePpi(new Position(350, 550));
-        userSnake = unitMaker.makeUserSnake(new Position(550, 450));
+        userSnake = unitMaker.makeUserSnake(new Position(550, 600));
         unitMaker.makeRabbit(new Position(250, 350));
         Snake snake = unitMaker.makeSnake(new Position(1000, 650));
         snakeAi = new SnakeAi(snake);
