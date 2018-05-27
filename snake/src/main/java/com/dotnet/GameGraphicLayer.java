@@ -81,10 +81,10 @@ public class GameGraphicLayer extends JPanel {
     private void showScore() {
         g.setColor(Color.BLACK);
         String msg = "Score : " + scoreBoard.getScore();
-        Font small = new Font("Helvetica", Font.BOLD, 16);
+        Font small = new Font("Helvetica", Font.BOLD, 84);
 
         g.setFont(small);
-        g.drawString(msg, 13, 40);
+        g.drawString(msg, 18, 70);
     }
 
     private void drawImage(Unit unitResource) {

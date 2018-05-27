@@ -16,8 +16,9 @@ public class GameControlLayer {
     private GameDataLayer gameDataLayer;
     private SnakeAi snakeAi;
     private final ScoreBoard scoreBoard;
+    private int stage;
 
-    public GameControlLayer() {
+    GameControlLayer() {
         unitResourceManager = new UnitResourceManager();
         unitMaker = new UnitMaker(unitResourceManager);
         scoreBoard = new ScoreBoard();
@@ -27,6 +28,7 @@ public class GameControlLayer {
 
         ScreenConfig screenConfig = new ScreenConfig();
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
+        stage=0;
     }
 
     private void gameProcess() {
@@ -39,8 +41,11 @@ public class GameControlLayer {
             unitMaker.makeFood(new Position(random.nextInt(1250)+150, random.nextInt(490)+300));
         }
         if(scoreBoard.getScore()>200){
-            gameGraphicLayer.changeBackground();
-            gameDataLayer.changeFenceBoundary();
+            if(stage==0){
+                gameGraphicLayer.changeBackground();
+                gameDataLayer.changeFenceBoundary();
+                stage++;
+            }
         }
         userSnake.move();
         //snakeAi.move();
