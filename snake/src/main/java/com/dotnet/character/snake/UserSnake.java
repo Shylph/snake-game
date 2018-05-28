@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class UserSnake extends Snake implements KeyListener {
-    public UserSnake() {
-        super();
+    public UserSnake(String headPath, String bodyPath) {
+        super(headPath,bodyPath);
     }
 
     @Override

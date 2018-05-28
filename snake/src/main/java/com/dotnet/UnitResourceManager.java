@@ -62,4 +62,10 @@ public class UnitResourceManager {
             }
         }
     }
+
+    public List<Unit> getFoodUnit(){
+        List<Unit> foods = getUnitResources("ppi");
+        foods.addAll(getUnitResources("rabbit"));
+        return foods;
+    }
 }

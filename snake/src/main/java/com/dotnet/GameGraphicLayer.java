@@ -5,18 +5,30 @@ import com.dotnet.character.Unit;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 public class GameGraphicLayer extends JPanel {
     private UnitResourceManager unitResourceManager;
     private Timer timer;
     private Graphics g;
     private boolean runFlag = true;
+    private Image background;
+    private Image background1;
+    private Image background2;
+    private ScoreBoard scoreBoard;
+    private final Image background3;
 
-    GameGraphicLayer(UnitResourceManager unitResourceManager) {
+    GameGraphicLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
         this.unitResourceManager = unitResourceManager;
+        this.scoreBoard = scoreBoard;
 
         setBackground(Color.black);
         setFocusable(true);
+
+        background1 = new ImageIcon("res/background2.jpg").getImage();
+        background2 = new ImageIcon("res/background3.jpg").getImage();
+        background3 = new ImageIcon("res/stage3.jpg").getImage();
+        background = background1;
     }
 
     public void addUserKeyListener(KeyListener keyListener) {
@@ -32,19 +44,20 @@ public class GameGraphicLayer extends JPanel {
             unitResourceManager.clear();
             showGameOver();
         }
+        showScore();
     }
 
     private void doDrawing() {
         drawBackground();
-        Unit[] drawResource = unitResourceManager.getUnitResources();
-        for (Unit resource : drawResource) {
+        Unit[] unitResource = unitResourceManager.getUnitResources();
+        for (Unit resource : unitResource) {
             drawImage(resource);
         }
         Toolkit.getDefaultToolkit().sync();
     }
 
     private void drawBackground() {
-        g.drawImage(new ImageIcon("res/background2.jpg").getImage(), 0, 0, 1600, 900, this);
+        g.drawImage(background, 0, 0, 1600, 900, this);
     }
 
     public void gameOver() {
@@ -65,12 +78,21 @@ public class GameGraphicLayer extends JPanel {
         g.setFont(small);
         g.drawString(msg, (this.getWidth() - metr.stringWidth(msg)) / 2, this.getHeight() / 2);
         repaint();
-
     }
 
-    private void drawImage(Unit drawResource) {
-        Position p = drawResource.getPoint();
-        g.drawImage(drawResource.getImg(), p.getX(), p.getY(), drawResource.getWidth(), drawResource.getHeight(), this);
+    private void showScore() {
+        g.setColor(Color.BLACK);
+        String msg = "Score : " + scoreBoard.getScore();
+        Font small = new Font("Helvetica", Font.BOLD, 84);
+
+        g.setFont(small);
+        g.drawString(msg, 18, 70);
+    }
+
+    private void drawImage(Unit unitResource) {
+        Position p = unitResource.getDrawPosition();
+        BufferedImage image = unitResource.getBufferedImage();
+        g.drawImage(image, p.getX(), p.getY(), image.getWidth(), image.getHeight(), this);
     }
 
     public void run() {
@@ -81,4 +103,15 @@ public class GameGraphicLayer extends JPanel {
     private void stop() {
         timer.stop();
     }
+
+    public void changeBackground() {
+        if(background == background2){
+            background = background3;
+        }else if (background == background1) {
+            background = background2;
+        } else {
+            background = background1;
+        }
+    }
+
 }

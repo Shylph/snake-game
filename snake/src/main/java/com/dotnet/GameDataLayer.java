@@ -9,9 +9,18 @@ public class GameDataLayer {
     private final UnitResourceManager unitResourceManager;
     private boolean inGame = true;
     private final int DELAY = 50;
+    private int bgBoundary[][] = {{755, 243, 1402, 164}, {850, 480, 1100, 254}, {850, 500, 1520, 80}};
+    private int bgSelecter;
+    private ScoreBoard scoreBoard;
 
-    public GameDataLayer(UnitResourceManager unitResourceManager) {
+
+    public GameDataLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
         this.unitResourceManager = unitResourceManager;
+        this.scoreBoard = scoreBoard;
+    }
+
+    public int[] getCurrentBgBoundary() {
+        return bgBoundary[bgSelecter];
     }
 
     public boolean isInGame() {
@@ -25,34 +34,44 @@ public class GameDataLayer {
     public boolean checkFenceCollision(Unit unit) {
         boolean collision = false;
         Position pos = unit.getPoint();
-        if (pos.getY() >= 755) {
+        if (pos.getY() >= bgBoundary[bgSelecter][0]) {
             collision = true;
         }
 
-        if (pos.getY() < 243) {
+        if (pos.getY() < bgBoundary[bgSelecter][1]) {
             collision = true;
         }
 
-        if (pos.getX() >= 1402) {
+        if (pos.getX() >= bgBoundary[bgSelecter][2]) {
             collision = true;
         }
 
-        if (pos.getX() < 164) {
+        if (pos.getX() < bgBoundary[bgSelecter][3]) {
             collision = true;
         }
         return collision;
     }
 
     public boolean checkFoodCollision(Snake snake) {
-        List<Unit> foods = unitResourceManager.getUnitResources("ppi");
-        foods.addAll(unitResourceManager.getUnitResources("rabbit"));
+        List<Unit> foods = unitResourceManager.getFoodUnit();
         for (Unit food : foods) {
             if (snake.checkCollision(food)) {
                 snake.incrementBody(unitResourceManager);
                 unitResourceManager.removeUnit(food.getName());
+                scoreBoard.addScore(100);
                 return true;
             }
         }
         return false;
+    }
+
+    public void changeFenceBoundary() {
+        if (bgSelecter == 1) {
+            bgSelecter = 2;
+        }else if (bgSelecter == 0) {
+            bgSelecter = 1;
+        } else {
+            bgSelecter = 0;
+        }
     }
 }

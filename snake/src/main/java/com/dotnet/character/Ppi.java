@@ -6,7 +6,8 @@ import javax.swing.*;
 
 public class Ppi extends Unit {
     public Ppi() {
-        super("ppi", new ImageIcon("res/ppi_1.png").getImage(), 60, 60);
+        super("ppi", "res/ppi_1.png");
+
         Position boundary[] = {new Position(-13, -18),
                 new Position(-4, -18),
                 new Position(4, -14),

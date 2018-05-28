@@ -2,22 +2,30 @@ package com.dotnet.character;
 
 import com.dotnet.Position;
 
-import java.awt.*;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Unit {
     private String name;
-    private final Image img;
-
     private CollisionArea collisionArea;
-    private int width;
-    private int height;
+    private BufferedImage bufferedImage;
+    private double angle;
 
-    public Unit(String name, Image image, int width, int height) {
+    public Unit(String name, String filePath) {
         this.name = name;
-        img = image;
-        this.width = width;
-        this.height = height;
         this.collisionArea = new CollisionArea(null, null);
+        angle=0;
+        try {
+            bufferedImage = ImageIO.read(new File(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public boolean isName(String name) {
@@ -32,16 +40,23 @@ public class Unit {
         return collisionArea.getPosition();
     }
 
-    public Image getImg() {
-        return img;
+    public Position getDrawPosition() {
+        return collisionArea.getDrawPosition();
     }
 
-    public int getWidth() {
-        return width;
+    public BufferedImage getBufferedImage() {
+        Position centralAxis = collisionArea.getCentralAxis();
+        double locationX = centralAxis.getX();
+        double locationY = centralAxis.getY();
+
+        AffineTransform tx = AffineTransform.getRotateInstance(angle, locationX, locationY);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+        return op.filter(bufferedImage, null);
     }
 
-    public int getHeight() {
-        return height;
+    public void setRotation(int angle) {
+        this.angle = Math.toRadians(angle);
     }
 
     private CollisionArea getCollisionArea() {
@@ -60,4 +75,5 @@ public class Unit {
         CollisionArea targetArea = unit.getCollisionArea();
         return collisionArea.checkCollision(targetArea);
     }
+
 }

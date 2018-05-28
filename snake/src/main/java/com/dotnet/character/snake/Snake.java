@@ -5,7 +5,6 @@ import com.dotnet.UnitResourceManager;
 import com.dotnet.character.CollisionArea;
 import com.dotnet.character.Unit;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +14,12 @@ public class Snake extends Unit {
     private final int DOT_SIZE = 50;
     private ArrayList<Unit> snakeResources;
     private Direction direction = LEFT;
-    private int bodyWidth;
-    private int bodyHeight;
     private int speed;
+    private String bodyPath;
 
-    public Snake() {
-        super("snake1h", new ImageIcon("res/head1_new.png").getImage(), 60, 80);
+    public Snake(String headPath, String bodyPath) {
+        super("snake1h", headPath);
+        this.bodyPath = bodyPath;
         Position boundary[] = {new Position(7, -54),
                 new Position(27, -24),
                 new Position(28, -6),
@@ -32,23 +31,22 @@ public class Snake extends Unit {
                 new Position(-29, -17),
                 new Position(-21, -38),
                 new Position(-3, -54)};
-        setCollisionArea(new CollisionArea(new Position(31, 28), boundary));
+        setCollisionArea(new CollisionArea(new Position(30, 55), boundary));
 
         initSnake();
 
     }
 
     private void initSnake() {
-        speed = 8;
+        speed = 20;
         snakeResources = new ArrayList<>();
 
         snakeResources.add(this);
-        bodyWidth = 50;
-        bodyHeight = 50;
     }
 
     public void incrementBody(UnitResourceManager unitResourceManager) {
-        Unit tail = new Unit("snake1b", new ImageIcon("res/body1_new.png").getImage(), bodyWidth, bodyHeight);
+        Unit tail = new Unit("snake1b", bodyPath);
+        tail.setCollisionArea(new CollisionArea(new Position(30,30),null));
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
         unitResourceManager.addUnit(tail);
@@ -58,20 +56,24 @@ public class Snake extends Unit {
         return snakeResources;
     }
 
-    void down() {
+    public void down() {
         direction = DOWN;
+        setRotation(180);
     }
 
-    void up() {
+    public void up() {
         direction = UP;
+        setRotation(0);
     }
 
-    void right() {
+    public void right() {
         direction = RIGHT;
+        setRotation(90);
     }
 
-    void left() {
+    public void left() {
         direction = LEFT;
+        setRotation(270);
     }
 
     public void move() {
