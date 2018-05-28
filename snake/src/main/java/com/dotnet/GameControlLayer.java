@@ -17,8 +17,10 @@ public class GameControlLayer {
     private SnakeAi snakeAi;
     private final ScoreBoard scoreBoard;
     private int stage;
+    private final SoundController soundController;
 
     GameControlLayer() {
+        soundController = new SoundController();
         unitResourceManager = new UnitResourceManager();
         unitMaker = new UnitMaker(unitResourceManager);
         scoreBoard = new ScoreBoard();
@@ -35,6 +37,7 @@ public class GameControlLayer {
         if (gameDataLayer.checkFenceCollision(userSnake)) {
             stopGame();
             gameGraphicLayer.gameOver();
+            soundController.stop_background();
         }
         if (scoreBoard.getScore() > 400) {
             if (stage == 1) {
@@ -87,6 +90,7 @@ public class GameControlLayer {
             }
         });
         timer.start();
+        soundController.play_background();
     }
 
     private void stopGame() {
