@@ -3,6 +3,7 @@ package com.dotnet.character.snake;
 import com.dotnet.Position;
 import com.dotnet.UnitResourceManager;
 import com.dotnet.character.CollisionArea;
+import com.dotnet.character.Movable;
 import com.dotnet.character.Unit;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 
 import static com.dotnet.character.snake.Snake.Direction.*;
 
-public class Snake extends Unit {
+public class Snake extends Unit implements Movable {
     private final int DOT_SIZE = 50;
     private ArrayList<Unit> snakeResources;
     private Direction direction = LEFT;
@@ -56,26 +57,27 @@ public class Snake extends Unit {
         return snakeResources;
     }
 
-    public void down() {
+    void down() {
         direction = DOWN;
         setRotation(180);
     }
 
-    public void up() {
+    void up() {
         direction = UP;
         setRotation(0);
     }
 
-    public void right() {
+    void right() {
         direction = RIGHT;
         setRotation(90);
     }
 
-    public void left() {
+    void left() {
         direction = LEFT;
         setRotation(270);
     }
 
+    @Override
     public void move() {
         Position prePos = getPoint().clone();
         if (direction == LEFT) {
@@ -95,6 +97,12 @@ public class Snake extends Unit {
             Position nextPos = new Position((m * pos.getX() + n * prePos.getX()) / DOT_SIZE, (m * pos.getY() + n * prePos.getY()) / DOT_SIZE);
             prePos.setPosition(pos);
             pos.setPosition(nextPos);
+        }
+    }
+
+    public void setAllPosition(Position position) {
+        for(Unit unit : snakeResources){
+            unit.setPosition(position);
         }
     }
 

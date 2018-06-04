@@ -19,7 +19,7 @@ public class Unit {
     public Unit(String name, String filePath) {
         this.name = name;
         this.collisionArea = new CollisionArea(null, null);
-        angle=0;
+        angle = 0;
         try {
             bufferedImage = ImageIO.read(new File(filePath));
         } catch (IOException e) {
@@ -55,7 +55,7 @@ public class Unit {
         return op.filter(bufferedImage, null);
     }
 
-    public void setRotation(int angle) {
+    protected void setRotation(int angle) {
         this.angle = Math.toRadians(angle);
     }
 

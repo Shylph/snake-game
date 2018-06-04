@@ -1,25 +1,28 @@
 package com.dotnet;
 
-import com.dotnet.character.Ppi;
-import com.dotnet.character.Rabbit;
-import com.dotnet.character.Unit;
+import com.dotnet.character.*;
 import com.dotnet.character.snake.Snake;
 import com.dotnet.character.snake.UserSnake;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class UnitMaker {
 
     private final UnitResourceManager unitResourceManager;
+    private List<Movable> movables;
 
-    public UnitMaker(UnitResourceManager unitResourceManager) {
+    UnitMaker(UnitResourceManager unitResourceManager) {
         this.unitResourceManager = unitResourceManager;
+        movables = new ArrayList<>();
     }
 
     UserSnake makeUserSnake(Position startPos) {
         UserSnake userSnake = new UserSnake("res/head1_new.png","res/body1_new.png");
         unitResourceManager.addUnit(userSnake.getDrawResource());
         userSnake.setPosition(startPos);
+        movables.add(userSnake);
         return userSnake;
     }
     Snake makeSnake(Position startPos){
@@ -43,6 +46,13 @@ public class UnitMaker {
 
         return ppi;
     }
+    SnakeHunter makeSnakeHunter(Position startPos) {
+        SnakeHunter snakeHunter= new SnakeHunter();
+        unitResourceManager.addUnit(snakeHunter.getDrawResource());
+        snakeHunter.setPosition(startPos);
+        movables.add(snakeHunter);
+        return snakeHunter;
+    }
 
     Unit makeFood(Position startPos){
         Random random = new Random();
@@ -55,5 +65,9 @@ public class UnitMaker {
         }
 
         return unit;
+    }
+
+    public List<Movable> getMovables() {
+        return movables;
     }
 }

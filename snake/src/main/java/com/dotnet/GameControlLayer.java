@@ -1,6 +1,7 @@
 package com.dotnet;
 
-import com.dotnet.character.snake.Snake;
+import com.dotnet.character.Movable;
+import com.dotnet.character.SnakeHunter;
 import com.dotnet.character.snake.UserSnake;
 
 import javax.swing.*;
@@ -14,10 +15,11 @@ public class GameControlLayer {
     private UnitResourceManager unitResourceManager;
     private UnitMaker unitMaker;
     private GameDataLayer gameDataLayer;
-    private SnakeAi snakeAi;
     private final ScoreBoard scoreBoard;
     private int stage;
     private final SoundController soundController;
+    private SnakeHunter snakeHunter;
+
 
     GameControlLayer() {
         soundController = new SoundController();
@@ -35,10 +37,7 @@ public class GameControlLayer {
 
     private void gameProcess() {
         if (gameDataLayer.checkFenceCollision(userSnake)) {
-            stopGame();
-            gameGraphicLayer.gameOver();
-            soundController.playGameOver();
-            soundController.stop_background();
+            gameOverProcess();
         }
         if (scoreBoard.getScore() > 400 && stage == 1) {
             nextStage();
@@ -46,13 +45,25 @@ public class GameControlLayer {
         } else if (scoreBoard.getScore() > 200 && stage == 0) {
             nextStage();
             generateFood();
-
+            snakeHunter = unitMaker.makeSnakeHunter(new Position(1000, 650));
+            userSnake.incrementBody(unitResourceManager);
         }
         if (gameDataLayer.checkFoodCollision(userSnake)) {
             generateFood();
         }
-        userSnake.move();
-        //snakeAi.move();
+        if (snakeHunter != null && snakeHunter.checkCollision(userSnake)) {
+            gameOverProcess();
+        }
+        for (Movable movable : unitMaker.getMovables()) {
+            movable.move();
+        }
+    }
+
+    private void gameOverProcess() {
+        stopGame();
+        gameGraphicLayer.gameOver();
+        soundController.playGameOver();
+        soundController.stop_background();
     }
 
     private void generateFood() {
@@ -63,7 +74,7 @@ public class GameControlLayer {
 
     private void nextStage() {
         stage++;
-        userSnake.setPosition(new Position(550, 600));
+        userSnake.setAllPosition(new Position(550, 600));
         gameGraphicLayer.changeBackground(stage);
         gameDataLayer.changeFenceBoundary(stage);
         soundController.playBackground(stage);
@@ -75,9 +86,6 @@ public class GameControlLayer {
         unitMaker.makePpi(new Position(350, 550));
         userSnake = unitMaker.makeUserSnake(new Position(550, 600));
         unitMaker.makeRabbit(new Position(250, 350));
-        Snake snake = unitMaker.makeSnake(new Position(1000, 650));
-        snakeAi = new SnakeAi(snake);
-        userSnake.incrementBody(unitResourceManager);
     }
 
     public void runGame() {
