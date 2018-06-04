@@ -65,13 +65,7 @@ public class GameDataLayer {
         return false;
     }
 
-    public void changeFenceBoundary() {
-        if (bgSelecter == 1) {
-            bgSelecter = 2;
-        }else if (bgSelecter == 0) {
-            bgSelecter = 1;
-        } else {
-            bgSelecter = 0;
-        }
+    public void changeFenceBoundary(int stage) {
+        bgSelecter = stage;
     }
 }

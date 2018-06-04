@@ -37,30 +37,38 @@ public class GameControlLayer {
         if (gameDataLayer.checkFenceCollision(userSnake)) {
             stopGame();
             gameGraphicLayer.gameOver();
+            soundController.playGameOver();
             soundController.stop_background();
         }
-        if (scoreBoard.getScore() > 400) {
-            if (stage == 1) {
-                userSnake.setPosition(new Position(550, 600));
-                gameGraphicLayer.changeBackground();
-                gameDataLayer.changeFenceBoundary();
-                stage++;
-            }
-        } else if (scoreBoard.getScore() > 200) {
-            if (stage == 0) {
-                userSnake.setPosition(new Position(550, 600));
-                gameGraphicLayer.changeBackground();
-                gameDataLayer.changeFenceBoundary();
-                stage++;
-            }
+        if (scoreBoard.getScore() > 400 && stage == 1) {
+            nextStage();
+            generateFood();
+        } else if (scoreBoard.getScore() > 200 && stage == 0) {
+            nextStage();
+            generateFood();
+
         }
         if (gameDataLayer.checkFoodCollision(userSnake)) {
-            Random random = new Random();
-            int boundary[] = gameDataLayer.getCurrentBgBoundary();
-            unitMaker.makeFood(new Position(random.nextInt(boundary[2] - boundary[3]) + boundary[3], random.nextInt(boundary[0] - boundary[1]) + boundary[1]));
+            generateFood();
         }
         userSnake.move();
         //snakeAi.move();
+    }
+
+    private void generateFood() {
+        Random random = new Random();
+        int boundary[] = gameDataLayer.getCurrentBgBoundary();
+        unitMaker.makeFood(new Position(random.nextInt(boundary[2] - boundary[3]) + boundary[3], random.nextInt(boundary[0] - boundary[1]) + boundary[1]));
+    }
+
+    private void nextStage() {
+        stage++;
+        userSnake.setPosition(new Position(550, 600));
+        gameGraphicLayer.changeBackground(stage);
+        gameDataLayer.changeFenceBoundary(stage);
+        soundController.playBackground(stage);
+        soundController.playNextStage();
+
     }
 
     private void initStartPosition() {
@@ -90,7 +98,7 @@ public class GameControlLayer {
             }
         });
         timer.start();
-        soundController.play_background();
+        soundController.playBackground(stage);
     }
 
     private void stopGame() {

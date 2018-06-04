@@ -104,13 +104,14 @@ public class GameGraphicLayer extends JPanel {
         timer.stop();
     }
 
-    public void changeBackground() {
-        if(background == background2){
-            background = background3;
-        }else if (background == background1) {
-            background = background2;
-        } else {
-            background = background1;
+    public void changeBackground(int stage) {
+        switch (stage) {
+            case 1:
+                background = background2;
+                break;
+            case 2:
+                background = background3;
+                break;
         }
     }
 
