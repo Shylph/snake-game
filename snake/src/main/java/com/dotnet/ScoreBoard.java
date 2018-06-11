@@ -23,13 +23,8 @@ public class ScoreBoard {
 
     public void addAlphabet(String name) {
         word += name;
-        System.out.println(word);
-        System.out.println(word.length());
         char[] alphabets = word.toCharArray();
         char[] target = targetWord.toCharArray();
-
-        System.out.println(targetWord);
-        System.out.println(targetWord.length());
 
         for (int i = 0; i < alphabets.length; i++) {
             char temp = alphabets[i];
