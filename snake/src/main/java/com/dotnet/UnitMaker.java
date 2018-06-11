@@ -1,7 +1,6 @@
 package com.dotnet;
 
 import com.dotnet.character.*;
-import com.dotnet.character.snake.Snake;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +34,14 @@ public class UnitMaker {
         return snake;
     }
 
-    Unit makeRabbit(Position startPos) {
+    private Unit makeRabbit(Position startPos) {
         Rabbit rabbit = new Rabbit();
         unitResourceManager.addUnit(rabbit.getDrawResource());
         rabbit.setPosition(startPos);
         return rabbit;
     }
 
-    Unit makePpi(Position startPos) {
+    private Unit makePpi(Position startPos) {
         Ppi ppi = new Ppi();
         unitResourceManager.addUnit(ppi.getDrawResource());
         ppi.setPosition(startPos);
@@ -83,10 +82,10 @@ public class UnitMaker {
 
 
     public void removeUnit(Unit unit) {
-        if(unit!=null){
-            unitResourceManager.removeUnit(unit.getName());
-            for(Snake snake : snakeList){
-                if(unit.getName().equals(snake.getName())){
+        if (unit != null) {
+            unitResourceManager.removeUnits(unit.getName());
+            for (Snake snake : snakeList) {
+                if (unit.getName().equals(snake.getName())) {
                     movables.remove(snake);
                     snakeList.remove(snake);
                     break;
@@ -102,5 +101,22 @@ public class UnitMaker {
         movables.add(fireman);
         return fireman;
 
+    }
+
+    public Alphabet makeAlphabet(Position startPos) {
+        Random random = new Random();
+        char name = (char) (random.nextInt(25) + 65);
+
+        Alphabet alphabet = new Alphabet(name);
+        unitResourceManager.addUnit(alphabet.getDrawResource());
+        alphabet.setPosition(startPos);
+        return alphabet;
+    }
+
+    public Alphabet makeAlphabet(char name, Position startPos) {
+        Alphabet alphabet = new Alphabet(name);
+        unitResourceManager.addUnit(alphabet.getDrawResource());
+        alphabet.setPosition(startPos);
+        return alphabet;
     }
 }

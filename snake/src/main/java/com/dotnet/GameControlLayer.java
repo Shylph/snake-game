@@ -1,10 +1,6 @@
 package com.dotnet;
 
-import com.dotnet.character.Fireman;
-import com.dotnet.character.Movable;
-import com.dotnet.character.SnakeHunter;
-import com.dotnet.character.Unit;
-import com.dotnet.character.snake.Snake;
+import com.dotnet.character.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,10 +39,12 @@ public class GameControlLayer {
             if (scoreBoard.getScore() > 400 && stage == 1) {
                 nextStage();
                 generateFood();
+                generateAlphabet();
                 fireman = unitMaker.makeFireman(new Position(700, 650));
             } else if (scoreBoard.getScore() > 200 && stage == 0) {
                 nextStage();
                 generateFood();
+                generateAlphabet();
                 snakeHunter = unitMaker.makeSnakeHunter(new Position(1000, 650));
             }
         }
@@ -57,6 +55,9 @@ public class GameControlLayer {
             }
             if (gameDataLayer.checkFoodCollision(snake)) {
                 generateFood();
+            }
+            if (gameDataLayer.checkAlphabetCollision(snake)) {
+                generateAlphabet();
             }
             if (snakeHunter != null && snakeHunter.checkCollision(snake)) {
                 gameOverProcess();
@@ -98,6 +99,12 @@ public class GameControlLayer {
         unitMaker.makeFood(new Position(random.nextInt(boundary[2] - boundary[3]) + boundary[3], random.nextInt(boundary[0] - boundary[1]) + boundary[1]));
     }
 
+    private void generateAlphabet() {
+        Random random = new Random();
+        int boundary[] = gameDataLayer.getCurrentBgBoundary();
+        unitMaker.makeAlphabet(new Position(random.nextInt(boundary[2] - boundary[3]) + boundary[3], random.nextInt(boundary[0] - boundary[1]) + boundary[1]));
+    }
+
     private void nextStage() {
         stage++;
         for (Snake snake : unitMaker.getSnakeList()) {
@@ -112,9 +119,9 @@ public class GameControlLayer {
     public void runArcadeGame() {
         gameGraphicLayer.setScoreDisplayFlag(true);
         gameMode = GameMode.ARCADE;
-        unitMaker.makePpi(new Position(350, 550));
         Snake snake = unitMaker.makeSnake(new Position(550, 600));
-        unitMaker.makeRabbit(new Position(250, 350));
+        generateFood();
+        generateAlphabet();
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
         snake.setKey(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
@@ -146,10 +153,9 @@ public class GameControlLayer {
     public void runFightGame() {
         gameGraphicLayer.setScoreDisplayFlag(false);
         gameMode = GameMode.FIGHT;
-        unitMaker.makePpi(new Position(350, 550));
         Snake snake1 = unitMaker.makeSnake(new Position(550, 600));
         Snake snake2 = unitMaker.makeSnake(new Position(700, 600));
-        unitMaker.makeRabbit(new Position(250, 350));
+        generateFood();
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
         snake1.setKey(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);

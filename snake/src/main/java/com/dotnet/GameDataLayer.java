@@ -1,8 +1,9 @@
 package com.dotnet;
 
+import com.dotnet.character.Snake;
 import com.dotnet.character.Unit;
-import com.dotnet.character.snake.Snake;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameDataLayer {
@@ -53,11 +54,12 @@ public class GameDataLayer {
     }
 
     public boolean checkFoodCollision(Snake snake) {
-        List<Unit> foods = unitResourceManager.getFoodUnit();
+        List<Unit> foods = unitResourceManager.getUnitResources("ppi");
+        foods.addAll(unitResourceManager.getUnitResources("rabbit"));
         for (Unit food : foods) {
             if (snake.checkCollision(food)) {
                 snake.incrementBody(unitResourceManager);
-                unitResourceManager.removeUnit(food.getName());
+                unitResourceManager.removeUnits(food.getName());
                 scoreBoard.addScore(100);
                 return true;
             }
@@ -70,4 +72,21 @@ public class GameDataLayer {
     }
 
 
+    public boolean checkAlphabetCollision(Snake snake) {
+        List<Unit> alphabets = new ArrayList<>();
+        for (char i = 65; i < 91; i++) {
+            List<Unit> temp = unitResourceManager.getUnitResources(String.valueOf(i));
+            if (temp != null) {
+                alphabets.addAll(temp);
+            }
+        }
+        for(Unit alphabet : alphabets){
+            if (snake.checkCollision(alphabet)) {
+                unitResourceManager.removeUnit(alphabet.getName());
+                scoreBoard.addAlphabet(alphabet.getName());
+                return true;
+            }
+        }
+        return false;
+    }
 }

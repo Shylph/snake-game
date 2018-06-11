@@ -9,7 +9,7 @@ import java.util.List;
 public class UnitResourceManager {
     private List<Unit> drawResources;
 
-    public UnitResourceManager() {
+    UnitResourceManager() {
         drawResources = new ArrayList<>();
     }
 
@@ -54,7 +54,7 @@ public class UnitResourceManager {
         drawResources.clear();
     }
 
-    public void removeUnit(String name) {
+    public void removeUnits(String name) {
         List<Unit> temp = new ArrayList<>();
         for (Unit unit : drawResources) {
             if (unit.isName(name)) {
@@ -64,9 +64,14 @@ public class UnitResourceManager {
         drawResources.removeAll(temp);
     }
 
-    public List<Unit> getFoodUnit(){
-        List<Unit> foods = getUnitResources("ppi");
-        foods.addAll(getUnitResources("rabbit"));
-        return foods;
+    public void removeUnit(String name) {
+        Unit temp = null;
+        for (Unit unit : drawResources) {
+            if (unit.isName(name)) {
+                temp = unit;
+            }
+        }
+        drawResources.remove(temp);
     }
+
 }
