@@ -6,17 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class UnitMaker {
+public class UnitController {
 
     private final UnitResourceManager unitResourceManager;
     private List<Movable> movables;
     private List<Snake> snakeList;
+    private List<Unit> foodAlphabetList;
     private int seed;
 
-    UnitMaker(UnitResourceManager unitResourceManager) {
+    UnitController(UnitResourceManager unitResourceManager) {
         this.unitResourceManager = unitResourceManager;
         movables = new ArrayList<>();
         snakeList = new ArrayList<>();
+        foodAlphabetList = new ArrayList<>();
         seed = 0;
     }
 
@@ -38,6 +40,7 @@ public class UnitMaker {
         Rabbit rabbit = new Rabbit();
         unitResourceManager.addUnit(rabbit.getDrawResource());
         rabbit.setPosition(startPos);
+        foodAlphabetList.add(rabbit);
         return rabbit;
     }
 
@@ -45,7 +48,7 @@ public class UnitMaker {
         Ppi ppi = new Ppi();
         unitResourceManager.addUnit(ppi.getDrawResource());
         ppi.setPosition(startPos);
-
+        foodAlphabetList.add(ppi);
         return ppi;
     }
 
@@ -66,7 +69,7 @@ public class UnitMaker {
         } else {
             unit = makePpi(startPos);
         }
-
+        foodAlphabetList.add(unit);
         return unit;
     }
 
@@ -110,6 +113,7 @@ public class UnitMaker {
         Alphabet alphabet = new Alphabet(name);
         unitResourceManager.addUnit(alphabet.getDrawResource());
         alphabet.setPosition(startPos);
+        foodAlphabetList.add(alphabet);
         return alphabet;
     }
 
@@ -117,6 +121,13 @@ public class UnitMaker {
         Alphabet alphabet = new Alphabet(name);
         unitResourceManager.addUnit(alphabet.getDrawResource());
         alphabet.setPosition(startPos);
+        foodAlphabetList.add(alphabet);
         return alphabet;
+    }
+
+    public void removeAllFoodAlphabet(){
+        for(Unit unit :  foodAlphabetList){
+            unitResourceManager.removeUnit(unit.getName());
+        }
     }
 }
