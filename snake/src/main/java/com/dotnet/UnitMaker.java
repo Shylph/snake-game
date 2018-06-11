@@ -94,4 +94,13 @@ public class UnitMaker {
             }
         }
     }
+
+    public Fireman makeFireman(Position startPos) {
+        Fireman fireman = new Fireman();
+        unitResourceManager.addUnit(fireman.getDrawResource());
+        fireman.setPosition(startPos);
+        movables.add(fireman);
+        return fireman;
+
+    }
 }

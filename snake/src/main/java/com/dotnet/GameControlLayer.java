@@ -1,5 +1,6 @@
 package com.dotnet;
 
+import com.dotnet.character.Fireman;
 import com.dotnet.character.Movable;
 import com.dotnet.character.SnakeHunter;
 import com.dotnet.character.Unit;
@@ -20,6 +21,7 @@ public class GameControlLayer {
     private GameMode gameMode;
     private final SoundController soundController;
     private SnakeHunter snakeHunter;
+    private Fireman fireman;
 
 
     GameControlLayer() {
@@ -41,6 +43,7 @@ public class GameControlLayer {
             if (scoreBoard.getScore() > 400 && stage == 1) {
                 nextStage();
                 generateFood();
+                fireman = unitMaker.makeFireman(new Position(700, 650));
             } else if (scoreBoard.getScore() > 200 && stage == 0) {
                 nextStage();
                 generateFood();
@@ -56,6 +59,9 @@ public class GameControlLayer {
                 generateFood();
             }
             if (snakeHunter != null && snakeHunter.checkCollision(snake)) {
+                gameOverProcess();
+            }
+            if (fireman != null && fireman.checkCollision(snake)) {
                 gameOverProcess();
             }
         }
