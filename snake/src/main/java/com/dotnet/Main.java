@@ -10,11 +10,22 @@ public class Main extends JFrame {
     private Main() {
 
         GameControlLayer gameControlLayer = new GameControlLayer();
-        gameControlLayer.runGame();
+        ModeSelectLayer modeSelectLayer = new ModeSelectLayer();
+        add(modeSelectLayer);
 
-        add(gameControlLayer.getGameGraphicLayer());
+        modeSelectLayer.setArcadeModeListener(e -> {
+            gameControlLayer.runArcadeGame();
+
+            add(gameControlLayer.getGameGraphicLayer());
+            modeSelectLayer.setVisible(false);
+        });
+
+        modeSelectLayer.setFightModeListener(e -> {
+
+        });
 
         setResizable(false);
+        setPreferredSize(new Dimension(1600,900));
         pack();
         setTitle("Snake");
         setLocationRelativeTo(null);

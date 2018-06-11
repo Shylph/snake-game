@@ -88,7 +88,7 @@ public class GameControlLayer {
         unitMaker.makeRabbit(new Position(250, 350));
     }
 
-    public void runGame() {
+    public void runArcadeGame() {
         initStartPosition();
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
@@ -116,4 +116,5 @@ public class GameControlLayer {
     public GameGraphicLayer getGameGraphicLayer() {
         return gameGraphicLayer;
     }
+
 }
