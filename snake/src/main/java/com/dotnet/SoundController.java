@@ -13,11 +13,11 @@ public class SoundController {
 
 
     public void playBackground(int stage) {
-        String pathname = "res/sounds/bgm_nature.wav";
+        String pathname = "res/sounds/1번 배경.wav";
         if (stage == 1) {
-            pathname = "res/sounds/뒷산 배경 (mp3cut.net).wav";
+            pathname = "res/sounds/2번 배경.wav";
         } else if (stage == 2) {
-            pathname = "res/sounds/도시 배경음 (mp3cut.net).wav";
+            pathname = "res/sounds/3번 배경.wav";
         }
         if (background != null && background.isRunning()) {
             background.stop();
