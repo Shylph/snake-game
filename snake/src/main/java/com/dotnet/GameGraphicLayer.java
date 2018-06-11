@@ -17,6 +17,7 @@ public class GameGraphicLayer extends JPanel {
     private Image background2;
     private ScoreBoard scoreBoard;
     private final Image background3;
+    private boolean scoreDisplayFlag;
 
     GameGraphicLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
         this.unitResourceManager = unitResourceManager;
@@ -31,7 +32,7 @@ public class GameGraphicLayer extends JPanel {
         background = background1;
     }
 
-    public void addUserKeyListener(KeyListener keyListener) {
+    public void setUserKeyAdapter(KeyListener keyListener) {
         addKeyListener(keyListener);
     }
 
@@ -81,12 +82,14 @@ public class GameGraphicLayer extends JPanel {
     }
 
     private void showScore() {
-        g.setColor(Color.BLACK);
-        String msg = "Score : " + scoreBoard.getScore();
-        Font small = new Font("Helvetica", Font.BOLD, 84);
+        if(scoreDisplayFlag){
+            g.setColor(Color.BLACK);
+            String msg = "Score : " + scoreBoard.getScore();
+            Font small = new Font("Helvetica", Font.BOLD, 84);
 
-        g.setFont(small);
-        g.drawString(msg, 18, 70);
+            g.setFont(small);
+            g.drawString(msg, 18, 70);
+        }
     }
 
     private void drawImage(Unit unitResource) {
@@ -115,4 +118,7 @@ public class GameGraphicLayer extends JPanel {
         }
     }
 
+    public void setScoreDisplayFlag(boolean scoreDisplayFlag) {
+        this.scoreDisplayFlag = scoreDisplayFlag;
+    }
 }

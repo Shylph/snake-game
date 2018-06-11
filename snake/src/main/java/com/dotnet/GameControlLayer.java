@@ -2,28 +2,29 @@ package com.dotnet;
 
 import com.dotnet.character.Movable;
 import com.dotnet.character.SnakeHunter;
-import com.dotnet.character.snake.UserSnake;
+import com.dotnet.character.Unit;
+import com.dotnet.character.snake.Snake;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GameControlLayer {
-    private UserSnake userSnake;
     private Timer timer;
     private GameGraphicLayer gameGraphicLayer;
-    private UnitResourceManager unitResourceManager;
     private UnitMaker unitMaker;
     private GameDataLayer gameDataLayer;
     private final ScoreBoard scoreBoard;
     private int stage;
+    private GameMode gameMode;
     private final SoundController soundController;
     private SnakeHunter snakeHunter;
 
 
     GameControlLayer() {
         soundController = new SoundController();
-        unitResourceManager = new UnitResourceManager();
+        UnitResourceManager unitResourceManager = new UnitResourceManager();
         unitMaker = new UnitMaker(unitResourceManager);
         scoreBoard = new ScoreBoard();
         gameGraphicLayer = new GameGraphicLayer(unitResourceManager, scoreBoard);
@@ -36,24 +37,43 @@ public class GameControlLayer {
     }
 
     private void gameProcess() {
-        if (gameDataLayer.checkFenceCollision(userSnake)) {
-            gameOverProcess();
+        if (gameMode == GameMode.ARCADE) {
+            if (scoreBoard.getScore() > 400 && stage == 1) {
+                nextStage();
+                generateFood();
+            } else if (scoreBoard.getScore() > 200 && stage == 0) {
+                nextStage();
+                generateFood();
+                snakeHunter = unitMaker.makeSnakeHunter(new Position(1000, 650));
+            }
         }
-        if (scoreBoard.getScore() > 400 && stage == 1) {
-            nextStage();
-            generateFood();
-        } else if (scoreBoard.getScore() > 200 && stage == 0) {
-            nextStage();
-            generateFood();
-            snakeHunter = unitMaker.makeSnakeHunter(new Position(1000, 650));
-            userSnake.incrementBody(unitResourceManager);
+        Snake[] snakeList = unitMaker.getSnakeList();
+        for (Snake snake : snakeList) {
+            if (gameDataLayer.checkFenceCollision(snake)) {
+                gameOverProcess();
+            }
+            if (gameDataLayer.checkFoodCollision(snake)) {
+                generateFood();
+            }
+            if (snakeHunter != null && snakeHunter.checkCollision(snake)) {
+                gameOverProcess();
+            }
         }
-        if (gameDataLayer.checkFoodCollision(userSnake)) {
-            generateFood();
+        if (gameMode == GameMode.FIGHT && snakeList.length > 1) {
+
+            Unit loser = null;
+
+            Snake snake1 = snakeList[0];
+            Snake snake2 = snakeList[1];
+            if (snake1.checkBodyCollision(snake2)) {
+                loser = snake2;
+            }
+            if (snake2.checkBodyCollision(snake1)) {
+                loser = snake1;
+            }
+            unitMaker.removeUnit(loser);
         }
-        if (snakeHunter != null && snakeHunter.checkCollision(userSnake)) {
-            gameOverProcess();
-        }
+
         for (Movable movable : unitMaker.getMovables()) {
             movable.move();
         }
@@ -74,26 +94,26 @@ public class GameControlLayer {
 
     private void nextStage() {
         stage++;
-        userSnake.setAllPosition(new Position(550, 600));
+        for (Snake snake : unitMaker.getSnakeList()) {
+            snake.setAllPosition(new Position(550, 600));
+        }
         gameGraphicLayer.changeBackground(stage);
         gameDataLayer.changeFenceBoundary(stage);
         soundController.playBackground(stage);
         soundController.playNextStage();
-
-    }
-
-    private void initStartPosition() {
-        unitMaker.makePpi(new Position(350, 550));
-        userSnake = unitMaker.makeUserSnake(new Position(550, 600));
-        unitMaker.makeRabbit(new Position(250, 350));
     }
 
     public void runArcadeGame() {
-        initStartPosition();
+        gameGraphicLayer.setScoreDisplayFlag(true);
+        gameMode = GameMode.ARCADE;
+        unitMaker.makePpi(new Position(350, 550));
+        Snake snake = unitMaker.makeSnake(new Position(550, 600));
+        unitMaker.makeRabbit(new Position(250, 350));
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
-        gameGraphicLayer.addUserKeyListener(gameKeyAdapter);
-        gameKeyAdapter.setKeyListener(userSnake);
+        snake.setKey(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
+        gameKeyAdapter.addKeyListener(snake.getKeyListener());
+        gameGraphicLayer.setUserKeyAdapter(gameKeyAdapter);
 
         gameGraphicLayer.run();
 
@@ -117,4 +137,36 @@ public class GameControlLayer {
         return gameGraphicLayer;
     }
 
+    public void runFightGame() {
+        gameGraphicLayer.setScoreDisplayFlag(false);
+        gameMode = GameMode.FIGHT;
+        unitMaker.makePpi(new Position(350, 550));
+        Snake snake1 = unitMaker.makeSnake(new Position(550, 600));
+        Snake snake2 = unitMaker.makeSnake(new Position(700, 600));
+        unitMaker.makeRabbit(new Position(250, 350));
+
+        GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
+        snake1.setKey(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
+        gameKeyAdapter.addKeyListener(snake1.getKeyListener());
+        snake2.setKey(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
+        gameKeyAdapter.addKeyListener(snake2.getKeyListener());
+
+        gameGraphicLayer.setUserKeyAdapter(gameKeyAdapter);
+
+        gameGraphicLayer.run();
+
+        timer = new Timer(gameDataLayer.getDELAY(), e -> {
+            if (gameDataLayer.isInGame()) {
+                gameProcess();
+            }
+
+        });
+        timer.start();
+        soundController.playBackground(stage);
+    }
+
+    enum GameMode {
+        ARCADE,
+        FIGHT
+    }
 }

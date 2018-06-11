@@ -2,7 +2,6 @@ package com.dotnet;
 
 import com.dotnet.character.*;
 import com.dotnet.character.snake.Snake;
-import com.dotnet.character.snake.UserSnake;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +11,27 @@ public class UnitMaker {
 
     private final UnitResourceManager unitResourceManager;
     private List<Movable> movables;
+    private List<Snake> snakeList;
+    private int seed;
 
     UnitMaker(UnitResourceManager unitResourceManager) {
         this.unitResourceManager = unitResourceManager;
         movables = new ArrayList<>();
+        snakeList = new ArrayList<>();
+        seed = 0;
     }
 
-    UserSnake makeUserSnake(Position startPos) {
-        UserSnake userSnake = new UserSnake("res/head1_new.png","res/body1_new.png");
-        unitResourceManager.addUnit(userSnake.getDrawResource());
-        userSnake.setPosition(startPos);
-        movables.add(userSnake);
-        return userSnake;
-    }
-    Snake makeSnake(Position startPos){
-        Snake snake = new Snake("res/head2_new.png","res/body2_new.png");
+    Snake makeSnake(Position startPos) {
+        Snake snake = null;
+        if (seed == 0)
+            snake = new Snake("snake1", "res/head1_new.png", "res/body1_new.png");
+        else if (seed == 1)
+            snake = new Snake("snake2", "res/head2_new.png", "res/body2_new.png");
+        seed++;
         unitResourceManager.addUnit(snake.getDrawResource());
         snake.setPosition(startPos);
+        movables.add(snake);
+        snakeList.add(snake);
         return snake;
     }
 
@@ -46,28 +49,49 @@ public class UnitMaker {
 
         return ppi;
     }
+
     SnakeHunter makeSnakeHunter(Position startPos) {
-        SnakeHunter snakeHunter= new SnakeHunter();
+        SnakeHunter snakeHunter = new SnakeHunter();
         unitResourceManager.addUnit(snakeHunter.getDrawResource());
         snakeHunter.setPosition(startPos);
         movables.add(snakeHunter);
         return snakeHunter;
     }
 
-    Unit makeFood(Position startPos){
+    Unit makeFood(Position startPos) {
         Random random = new Random();
         int i = random.nextInt(2);
-        Unit  unit;
-        if(i == 0){
-            unit =makeRabbit(startPos);
-        }else{
+        Unit unit;
+        if (i == 0) {
+            unit = makeRabbit(startPos);
+        } else {
             unit = makePpi(startPos);
         }
 
         return unit;
     }
 
-    public List<Movable> getMovables() {
-        return movables;
+    public Movable[] getMovables() {
+        Movable[] temp = new Movable[movables.size()];
+        return movables.toArray(temp);
+    }
+
+    public Snake[] getSnakeList() {
+        Snake[] temp = new Snake[snakeList.size()];
+        return snakeList.toArray(temp);
+    }
+
+
+    public void removeUnit(Unit unit) {
+        if(unit!=null){
+            unitResourceManager.removeUnit(unit.getName());
+            for(Snake snake : snakeList){
+                if(unit.getName().equals(snake.getName())){
+                    movables.remove(snake);
+                    snakeList.remove(snake);
+                    break;
+                }
+            }
+        }
     }
 }

@@ -6,6 +6,8 @@ import com.dotnet.character.CollisionArea;
 import com.dotnet.character.Movable;
 import com.dotnet.character.Unit;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +19,10 @@ public class Snake extends Unit implements Movable {
     private Direction direction = LEFT;
     private int speed;
     private String bodyPath;
+    private KeyListener keyListener;
 
-    public Snake(String headPath, String bodyPath) {
-        super("snake1h", headPath);
+    public Snake(String name, String headPath, String bodyPath) {
+        super(name, headPath);
         this.bodyPath = bodyPath;
         Position boundary[] = {new Position(7, -54),
                 new Position(27, -24),
@@ -46,8 +49,20 @@ public class Snake extends Unit implements Movable {
     }
 
     public void incrementBody(UnitResourceManager unitResourceManager) {
-        Unit tail = new Unit("snake1b", bodyPath);
-        tail.setCollisionArea(new CollisionArea(new Position(30,30),null));
+        Unit tail = new Unit(name, bodyPath);
+        //바운더리 몸체에 맞게 새로 만들어야 함
+        Position boundary[] = {new Position(7, -54),
+                new Position(27, -24),
+                new Position(28, -6),
+                new Position(17, 20),
+                new Position(11, 23),
+                new Position(-12, 23),
+                new Position(-25, 11),
+                new Position(-29, -2),
+                new Position(-29, -17),
+                new Position(-21, -38),
+                new Position(-3, -54)};
+        tail.setCollisionArea(new CollisionArea(new Position(30, 30), boundary));
         tail.setPosition(snakeResources.get(snakeResources.size() - 1).getPoint());
         snakeResources.add(tail);
         unitResourceManager.addUnit(tail);
@@ -101,13 +116,59 @@ public class Snake extends Unit implements Movable {
     }
 
     public void setAllPosition(Position position) {
-        for(Unit unit : snakeResources){
+        for (Unit unit : snakeResources) {
             unit.setPosition(position);
         }
     }
 
+    public KeyListener getKeyListener() {
+        return keyListener;
+    }
+
+    public void setKey(int upKeyCode, int downKeyCode, int leftKeyCode, int rightKeyCode) {
+        this.keyListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                if ((key == leftKeyCode)) {
+                    left();
+                } else if (key == rightKeyCode) {
+                    right();
+                } else if ((key == upKeyCode)) {
+                    up();
+                } else if ((key == downKeyCode)) {
+                    down();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        };
+    }
+
     enum Direction {
         UP, DOWN, LEFT, RIGHT
+    }
+
+    public boolean checkBodyCollision(Unit unit) {
+        boolean result = false;
+        for (int i = 1; i < snakeResources.size(); i++) {
+            Unit body = snakeResources.get(i);
+            if (unit.checkCollision(body)) {
+                return true;
+            }
+            /*
+            if(body.getPoint().equalPos(getPoint()))
+                return false;*/
+        }
+        return result;
     }
 }
 

@@ -14,7 +14,7 @@ public class GameDataLayer {
     private ScoreBoard scoreBoard;
 
 
-    public GameDataLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
+    GameDataLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
         this.unitResourceManager = unitResourceManager;
         this.scoreBoard = scoreBoard;
     }
@@ -68,4 +68,6 @@ public class GameDataLayer {
     public void changeFenceBoundary(int stage) {
         bgSelecter = stage;
     }
+
+
 }

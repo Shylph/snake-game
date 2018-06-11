@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Unit {
-    private String name;
+    protected String name;
     private CollisionArea collisionArea;
     private BufferedImage bufferedImage;
     private double angle;

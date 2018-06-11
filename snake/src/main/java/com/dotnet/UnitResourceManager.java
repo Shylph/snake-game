@@ -55,12 +55,13 @@ public class UnitResourceManager {
     }
 
     public void removeUnit(String name) {
+        List<Unit> temp = new ArrayList<>();
         for (Unit unit : drawResources) {
             if (unit.isName(name)) {
-                drawResources.remove(unit);
-                break;
+                temp.add(unit);
             }
         }
+        drawResources.removeAll(temp);
     }
 
     public List<Unit> getFoodUnit(){

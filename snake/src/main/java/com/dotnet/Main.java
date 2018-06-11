@@ -21,7 +21,10 @@ public class Main extends JFrame {
         });
 
         modeSelectLayer.setFightModeListener(e -> {
+            gameControlLayer.runFightGame();
 
+            add(gameControlLayer.getGameGraphicLayer());
+            modeSelectLayer.setVisible(false);
         });
 
         setResizable(false);

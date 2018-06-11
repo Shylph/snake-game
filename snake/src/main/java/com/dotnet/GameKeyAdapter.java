@@ -3,16 +3,24 @@ package com.dotnet;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameKeyAdapter extends KeyAdapter {
-    private KeyListener keyListener;
+    private List<KeyListener> keyListeners;
 
-    public void setKeyListener(KeyListener keyListener) {
-        this.keyListener = keyListener;
+    GameKeyAdapter(){
+        keyListeners = new ArrayList<>();
+    }
+
+    public void addKeyListener(KeyListener keyListener) {
+        keyListeners.add(keyListener);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        keyListener.keyPressed(e);
+        for(KeyListener listener : keyListeners){
+            listener.keyPressed(e);
+        }
     }
 }
