@@ -1,17 +1,14 @@
-package com.dotnet.character.snake;
+package com.dotnet.character;
 
 import com.dotnet.Position;
 import com.dotnet.UnitResourceManager;
-import com.dotnet.character.CollisionArea;
-import com.dotnet.character.Movable;
-import com.dotnet.character.Unit;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.dotnet.character.snake.Snake.Direction.*;
+import static com.dotnet.character.Snake.Direction.*;
 
 public class Snake extends Unit implements Movable {
     private final int DOT_SIZE = 50;
