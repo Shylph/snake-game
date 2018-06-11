@@ -125,12 +125,6 @@ public class GameControlLayer {
         generateFood();
         generateAlphabet();
 
-        unitController.makeAlphabet('A',new Position(550, 500));
-        unitController.makeAlphabet('P',new Position(650, 500));
-        unitController.makeAlphabet('P',new Position(750, 500));
-        unitController.makeAlphabet('L',new Position(850, 500));
-        unitController.makeAlphabet('E',new Position(950, 500));
-
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
         snake.setKey(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
         gameKeyAdapter.addKeyListener(snake.getKeyListener());
