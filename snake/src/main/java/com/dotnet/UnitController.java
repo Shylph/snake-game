@@ -36,6 +36,16 @@ public class UnitController {
         return snake;
     }
 
+    Snake makeAiSnake(Position startPos) {
+        AiSnake snake = null;
+        snake = new AiSnake("aiSnake", "res/head2_new.png", "res/body2_new.png");
+        unitResourceManager.addUnit(snake.getDrawResource());
+        snake.setPosition(startPos);
+        movables.add(snake);
+        snakeList.add(snake);
+        return snake;
+    }
+
     private Unit makeRabbit(Position startPos) {
         Rabbit rabbit = new Rabbit();
         unitResourceManager.addUnit(rabbit.getDrawResource());

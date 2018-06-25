@@ -1,3 +1,4 @@
-rootProject.name = 'snake-game'
+rootProject.name = 'snake-game-tensorflow'
 
 include ':snake'
+include ':snake-ai'
