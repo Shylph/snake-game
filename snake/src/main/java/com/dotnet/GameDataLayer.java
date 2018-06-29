@@ -12,12 +12,12 @@ public class GameDataLayer {
     private final int DELAY = 50;
     private int bgBoundary[][] = {{755, 243, 1402, 164}, {850, 480, 1100, 254}, {850, 500, 1520, 80}};
     private int bgSelecter;
-    private ScoreBoard scoreBoard;
+    private ScoreBoardManager scoreBoardManager;
 
 
-    GameDataLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
+    GameDataLayer(UnitResourceManager unitResourceManager, ScoreBoardManager scoreBoardManager) {
         this.unitResourceManager = unitResourceManager;
-        this.scoreBoard = scoreBoard;
+        this.scoreBoardManager = scoreBoardManager;
     }
 
     public int[] getCurrentBgBoundary() {
@@ -60,7 +60,7 @@ public class GameDataLayer {
             if (snake.checkCollision(food)) {
                 snake.incrementBody(unitResourceManager);
                 unitResourceManager.removeUnits(food.getName());
-                scoreBoard.addScore(100);
+                scoreBoardManager.getBoard(snake.getName()).addScore(100);
                 return true;
             }
         }
@@ -83,7 +83,7 @@ public class GameDataLayer {
         for(Unit alphabet : alphabets){
             if (snake.checkCollision(alphabet)) {
                 unitResourceManager.removeUnit(alphabet.getName());
-                scoreBoard.addAlphabet(alphabet.getName());
+                scoreBoardManager.getBoard(snake.getName()).addAlphabet(alphabet.getName());
                 return true;
             }
         }

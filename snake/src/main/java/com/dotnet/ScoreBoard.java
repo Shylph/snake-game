@@ -1,11 +1,13 @@
 package com.dotnet;
 
 public class ScoreBoard {
+    private final String name;
     private int score;
     private final String targetWord;
     private String word;
 
-    ScoreBoard() {
+    ScoreBoard(String name) {
+        this.name = name;
         score = 0;
         targetWord = "APPLE";
         word="";

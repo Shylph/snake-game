@@ -16,13 +16,13 @@ public class GameGraphicLayer extends JPanel {
     private Image background1;
     private Image background2;
     private ScoreBoard scoreBoard;
+    private ScoreBoardManager scoreBoardManager;
     private final Image background3;
     private boolean scoreDisplayFlag;
 
-    GameGraphicLayer(UnitResourceManager unitResourceManager, ScoreBoard scoreBoard) {
+    GameGraphicLayer(UnitResourceManager unitResourceManager, ScoreBoardManager scoreBoardManager) {
         this.unitResourceManager = unitResourceManager;
-        this.scoreBoard = scoreBoard;
-
+        this.scoreBoardManager = scoreBoardManager;
         setBackground(Color.black);
         setFocusable(true);
 
@@ -82,7 +82,7 @@ public class GameGraphicLayer extends JPanel {
     }
 
     private void showScore() {
-        if(scoreDisplayFlag){
+        if (scoreDisplayFlag) {
             g.setColor(Color.BLACK);
             String msg = "Score : " + scoreBoard.getScore();
             Font small = new Font("Helvetica", Font.BOLD, 84);
@@ -99,6 +99,8 @@ public class GameGraphicLayer extends JPanel {
     }
 
     public void run() {
+        //추후 수정할 것
+        this.scoreBoard = scoreBoardManager.getBoardAnyOne();
         timer = new Timer(16, e -> repaint());
         timer.start();
     }

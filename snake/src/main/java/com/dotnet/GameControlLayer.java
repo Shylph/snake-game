@@ -12,7 +12,7 @@ public class GameControlLayer {
     private GameGraphicLayer gameGraphicLayer;
     private UnitController unitController;
     private GameDataLayer gameDataLayer;
-    private final ScoreBoard scoreBoard;
+    private final ScoreBoardManager scoreBoardManager;
     private int stage;
     private GameMode gameMode;
     private final SoundController soundController;
@@ -24,10 +24,10 @@ public class GameControlLayer {
         soundController = new SoundController();
         UnitResourceManager unitResourceManager = new UnitResourceManager();
         unitController = new UnitController(unitResourceManager);
-        scoreBoard = new ScoreBoard();
-        gameGraphicLayer = new GameGraphicLayer(unitResourceManager, scoreBoard);
+        this.scoreBoardManager = new ScoreBoardManager();
+        gameGraphicLayer = new GameGraphicLayer(unitResourceManager, scoreBoardManager);
 
-        gameDataLayer = new GameDataLayer(unitResourceManager, scoreBoard);
+        gameDataLayer = new GameDataLayer(unitResourceManager, scoreBoardManager);
 
         ScreenConfig screenConfig = new ScreenConfig();
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
@@ -36,13 +36,13 @@ public class GameControlLayer {
 
     private void gameProcess() {
         if (gameMode == GameMode.ARCADE) {
-            if (scoreBoard.getScore() > 400 && stage == 1) {
+            if (scoreBoardManager.getBoardAnyOne().getScore() > 400 && stage == 1) {
                 nextStage();
                 unitController.removeAllFoodAlphabet();
                 generateFood();
                 generateAlphabet();
                 fireman = unitController.makeFireman(new Position(700, 650));
-            } else if (scoreBoard.getScore() > 200 && stage == 0) {
+            } else if (scoreBoardManager.getBoardAnyOne().getScore() > 200 && stage == 0) {
                 nextStage();
                 unitController.removeAllFoodAlphabet();
                 generateFood();
@@ -122,6 +122,7 @@ public class GameControlLayer {
         gameGraphicLayer.setScoreDisplayFlag(true);
         gameMode = GameMode.ARCADE;
         Snake snake = unitController.makeSnake(new Position(550, 600));
+        scoreBoardManager.register(snake.getName());
         generateFood();
         generateAlphabet();
 
@@ -156,8 +157,10 @@ public class GameControlLayer {
         gameGraphicLayer.setScoreDisplayFlag(false);
         gameMode = GameMode.FIGHT;
         Snake snake1 = unitController.makeSnake(new Position(550, 600));
+        scoreBoardManager.register(snake1.getName());
 //        Snake snake2 = unitController.makeSnake(new Position(700, 600));
         Snake snake2 = unitController.makeAiSnake(new Position(700, 600));
+        scoreBoardManager.register(snake2.getName());
         generateFood();
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();

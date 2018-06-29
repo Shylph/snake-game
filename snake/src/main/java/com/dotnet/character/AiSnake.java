@@ -14,7 +14,6 @@ public class AiSnake extends Snake {
     public AiSnake(String name, String headPath, String bodyPath) {
         super(name, headPath, bodyPath);
         String modelPath = "./model/simple";
-
         b = SavedModelBundle.load(modelPath, "test");
     }
 
