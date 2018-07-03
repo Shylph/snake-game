@@ -2,6 +2,7 @@ package com.dotnet;
 
 import com.dotnet.character.Snake;
 import com.dotnet.character.Unit;
+import com.dotnet.vo.ObservationAndReward;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,7 @@ public class GameDataLayer {
                 alphabets.addAll(temp);
             }
         }
-        for(Unit alphabet : alphabets){
+        for (Unit alphabet : alphabets) {
             if (snake.checkCollision(alphabet)) {
                 unitResourceManager.removeUnit(alphabet.getName());
                 scoreBoardManager.getBoard(snake.getName()).addAlphabet(alphabet.getName());
@@ -88,5 +89,38 @@ public class GameDataLayer {
             }
         }
         return false;
+    }
+
+    public ObservationAndReward getObservationAndReward() {
+        ObservationAndReward oar = new ObservationAndReward();
+        Unit unit = unitResourceManager.getUnitResource("aiSnake");
+        //1600x900 / 20x20 => 80x45
+        //20 = speed
+        //속도와 같아야 깔끔한 데이터가 나온다.
+        int divisionValue = 20;
+        oar.setWidth(80);
+        oar.setHeight(45);
+        oar.setReward(scoreBoardManager.getBoard("aiSnake").getScore());
+        oar.setGameOverFlag(!inGame);
+
+        Integer[][] rawData = new Integer[80][45];
+        for (Integer[] integers : rawData) {
+            for (int i = 0; i < integers.length; i++) {
+                integers[i] = 0;
+            }
+        }
+
+        Position pos = unit.getPoint();
+        rawData[pos.getX() / divisionValue][pos.getY() / divisionValue] = 1;
+        unit = unitResourceManager.getUnitResource("ppi");
+        if (unit == null) {
+            unit = unitResourceManager.getUnitResource("rabbit");
+        }
+        pos = unit.getPoint();
+        rawData[pos.getX() / divisionValue][pos.getY() / divisionValue] = 2;
+
+        oar.setRawData(rawData);
+
+        return oar;
     }
 }

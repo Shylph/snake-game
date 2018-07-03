@@ -8,7 +8,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.dotnet.character.Snake.Direction.*;
+import static com.dotnet.character.Direction.*;
+
 
 public class Snake extends Unit implements Movable {
     private final int DOT_SIZE = 50;
@@ -150,9 +151,6 @@ public class Snake extends Unit implements Movable {
         };
     }
 
-    enum Direction {
-        UP, DOWN, LEFT, RIGHT
-    }
 
     public boolean checkBodyCollision(Unit unit) {
         boolean result = false;
@@ -166,6 +164,14 @@ public class Snake extends Unit implements Movable {
                 return false;*/
         }
         return result;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }
 

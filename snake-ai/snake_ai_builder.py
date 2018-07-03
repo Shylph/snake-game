@@ -1,4 +1,3 @@
-# (1)1-1/R
 import tensorflow as tf
 
 # [x1,x2]
@@ -22,7 +21,7 @@ for i in range(0, 1600, 10):
         y_data.append(data)
 
 X = tf.placeholder(tf.float32, [None, 2], name='x')
-Y = tf.placeholder(tf.float32, [None, 4], name='y')
+Y = tf.placeholder(tf.float32, [None, 4], name='action')
 
 W1 = tf.Variable(tf.random_normal([2, 4]))
 b1 = tf.Variable(tf.random_normal([4]))

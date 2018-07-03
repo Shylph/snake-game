@@ -1,6 +1,8 @@
 package com.dotnet;
 
 import com.dotnet.character.*;
+import com.dotnet.util.CSVUtil;
+import com.dotnet.vo.ObservationAndReward;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GameControlLayer {
+    private final CSVUtil csvUtil;
     private Timer timer;
     private GameGraphicLayer gameGraphicLayer;
     private UnitController unitController;
@@ -32,6 +35,7 @@ public class GameControlLayer {
         ScreenConfig screenConfig = new ScreenConfig();
         gameGraphicLayer.setPreferredSize(new Dimension(screenConfig.getWidth(), screenConfig.getHeight()));
         stage = 0;
+        csvUtil = new CSVUtil("state", "./state");
     }
 
     private void gameProcess() {
@@ -53,6 +57,7 @@ public class GameControlLayer {
         Snake[] snakeList = unitController.getSnakeList();
         for (Snake snake : snakeList) {
             if (gameDataLayer.checkFenceCollision(snake)) {
+                scoreBoardManager.getBoard(snake.getName()).addScore(-10000);
                 gameOverProcess();
             }
             if (gameDataLayer.checkFoodCollision(snake)) {
@@ -83,8 +88,17 @@ public class GameControlLayer {
             unitController.removeUnit(loser);
         }
 
-        for (Movable movable : unitController.getMovables()) {
-            movable.move();
+        for (Snake snake : unitController.getSnakeList()) {
+
+            if (snake.isName("aiSnake")) {
+                snake.move();
+                ObservationAndReward observationAndReward = gameDataLayer.getObservationAndReward();
+                observationAndReward.setAction(snake.getDirection());
+                csvUtil.appendCSV(observationAndReward);
+                ((AiSnake)snake).saveRawData(observationAndReward.getRawData());
+            }else{
+                snake.move();
+            }
         }
     }
 
@@ -157,6 +171,7 @@ public class GameControlLayer {
         gameGraphicLayer.setScoreDisplayFlag(false);
         gameMode = GameMode.FIGHT;
         Snake snake1 = unitController.makeSnake(new Position(550, 600));
+        snake1.setSpeed(0);
         scoreBoardManager.register(snake1.getName());
 //        Snake snake2 = unitController.makeSnake(new Position(700, 600));
         Snake snake2 = unitController.makeAiSnake(new Position(700, 600));
@@ -164,10 +179,10 @@ public class GameControlLayer {
         generateFood();
 
         GameKeyAdapter gameKeyAdapter = new GameKeyAdapter();
-        snake1.setKey(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
-        gameKeyAdapter.addKeyListener(snake1.getKeyListener());
-//        snake2.setKey(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
-//        gameKeyAdapter.addKeyListener(snake2.getKeyListener());
+//        snake1.setKey(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
+//        gameKeyAdapter.addKeyListener(snake1.getKeyListener());
+        snake2.setKey(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
+        gameKeyAdapter.addKeyListener(snake2.getKeyListener());
 
         gameGraphicLayer.setUserKeyAdapter(gameKeyAdapter);
 
